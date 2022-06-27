@@ -47,43 +47,89 @@
         </div>
     </nav>
 
-    <div class="container jusify-content-center" style="margin-top: 200px">
+    <div class="jusify-content-center" style="margin-top: 200px">
         <div class="row">
-            <div class="col-md-11 h-75">
+            <div class="col-md-12 h-100 px-5">
                 <div class="input-group mb-4" style="height: 80px">
-                    <span class="input-group-text" id="basic-addon1">Soru</span>
-                    <input type="text" class="form-control" placeholder="Soru" aria-label="Soru" aria-describedby="basic-addon1">
+                    <span class="input-group-text" id="soru">Soru</span>
+                    <input type="text" class="form-control" placeholder="Soru" aria-label="Soru" aria-describedby="soru">
                 </div>
-                <div class="input-group mb-3" style="margin-left: 15px">
-                    <span class="input-group-text" id="basic-addon2">1.</span>
-                    <input type="text" class="form-control" placeholder="Cevap" aria-label="Soru" aria-describedby="basic-addon2">
+                <div class="input-group justify-content-center">
+                    <div class="col-md-3 form-check mr-2">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label">çoktan seçmeli</label>
+                    </div>
+                    <div class="col-md-3 form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label">açıklama</label>
+                    </div>
+                    <div class="form-check ml-2">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                        <label class="form-check-label">evet/hayır</label>
+                    </div>
                 </div>
-                <div class="input-group mb-3" style="margin-left: 15px">
-                    <span class="input-group-text" id="basic-addon3">2.</span>
-                    <input type="text" class="form-control" placeholder="Cevap" aria-label="Soru" aria-describedby="basic-addon3">
+                <!-- soru ekleme kısmı -->
+                <div class="btn-group">
+                    <div class="container1">
+                        <button class="add_form_field btn btn-primary">Cevap Ekle</button>
+                        <input class="btn btn-primary" type="submit" value="Kaydet">
+                    </div>
                 </div>
-                <div class="input-group mb-3" style="margin-left: 15px">
-                    <span class="input-group-text" id="basic-addon4">3.</span>
-                    <input type="text" class="form-control" placeholder="Cevap" aria-label="Soru" aria-describedby="basic-addon4">
+                <!-- çoktan seçmeli end -->
+
+                <!-- açıklama -->
+                <div class="input-group mb-3 my-5">
+                    <span class="input-group-text" id="acıkalma">açıklama</span>
+                    <input type="text" class="form-control" placeholder="açıklama" aria-label="açıklama" aria-describedby="acıklama">
                 </div>
-                <div class="input-group mb-3" style="margin-left: 15px">
-                    <span class="input-group-text" id="basic-addon5">4.</span>
-                    <input type="text" class="form-control" placeholder="Cevap" aria-label="Soru" aria-describedby="basic-addon5">
-                </div>
-                <div class="input-group mb-3" style="margin-left: 15px">
-                    <span class="input-group-text" id="basic-addon6">5.</span>
-                    <input type="text" class="form-control" placeholder="Cevap" aria-label="Soru" aria-describedby="basic-addon6">
-                </div>
-                <input class="btn btn-primary justify-content-center" style="width: 150px;" type="submit" value="Kaydet">
+                <!-- açıklama end -->
+
+                <!-- evet/hayır -->
+                    <div class="form-check ml-2">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="evet">
+                        <label class="form-check-label">Evet</label>
+                    </div>
+                    <div class="form-check ml-2">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="hayır">
+                        <label class="form-check-label">Hayır</label>
+                    </div>
+                <!-- evet/hayır end -->
             </div>
         </div>
     </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function()
+    {
+        var max_fields = 10;
+        var wrapper = $(".container1");
+        var add_button = $(".add_form_field");
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+        var x = 0;
+        $(add_button).click(function(e)
+        {
+            e.preventDefault();
+            if (x < max_fields)
+            {
+                x++;
+                $(wrapper).append('<div class="input-group p-2 container-sm">' +
+                                    '<span class="input-group-text" id="cevap1">' + x + '</span>' +
+                                    '<input type="text" class="form-control" placeholder="Cevap" aria-label="Soru" aria-describedby="cevap1"><a href="#" class="delete btn btn-default">Sil</a></div>' +
+                                   '</div>');
+            } else
+            {
+                alert('en fazla 10 tane cevap girebilirsiniz')
+            }
+        });
+        $(wrapper).on("click", ".delete", function(e)
+        {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        })
+    });
+</script>
 </body>
 </html>
