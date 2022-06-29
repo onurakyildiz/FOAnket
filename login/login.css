@@ -1,7 +1,4 @@
-*
-
-{
-
+*{
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,8 +11,6 @@ body{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-
-
 }
 
 form{
@@ -28,8 +23,6 @@ form{
     box-shadow: 0 0 10px rgba(0, 0, 0,.8);
     width: 300px;
     height: 400px;
-
-
 }
 
 form h2{
@@ -37,8 +30,8 @@ form h2{
     font-size: 55px;
     color: white;
     margin-bottom: 30px;
-
 }
+
 form input {
     border: none ;
     background: none;
@@ -51,36 +44,27 @@ form input {
     width: 70%;
     border-radius: 40px;
     transition: 0.2s ease-in;
-
 }
 
 form input[type="text"],form input[type="password"]{
-    border: solid 2px #1B9CFC;
-
+    border: solid 2px #0B3770;
 }
 
 form input[type="submit"]{
 
-    border: solid 2px #55E6C1;
+    border: solid 2px #0B3770;
     box-sizing: border-box;
     height: 50px;
     width: 40%;
     cursor: pointer;
 }
 
-
 form input[type="text"]:focus,form input[type="password"]:focus{
    width: 80%;
-   border: solid 2px #55E6C1;
-
+   border: solid 2px #A4A6A6;
 }
 
 form input[type="submit"]:hover{
-    background: #55E6C1;
-    color: #182C61;
-
-  
+    background: #A4A6A6;
+    color: #fff;
 }
-
-
-
