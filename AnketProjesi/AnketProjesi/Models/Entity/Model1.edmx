@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AnketProjesiDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ANKT_Anketler">
+          <Key>
+            <PropertyRef Name="AnketID" />
+          </Key>
+          <Property Name="AnketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Anket" Type="varchar" MaxLength="250" />
+          <Property Name="OlusturmaTarihi" Type="date" />
+          <Property Name="YayinTarihi" Type="date" />
+          <Property Name="BitisTarihi" Type="date" />
+          <Property Name="OlusturanKisiID" Type="int" />
+        </EntityType>
+        <EntityType Name="ANKT_Calisanlar">
+          <Key>
+            <PropertyRef Name="IsNo" />
+          </Key>
+          <Property Name="IsNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" />
+          <Property Name="Soyad" Type="varchar" MaxLength="50" />
+          <Property Name="Bolum" Type="varchar" MaxLength="50" />
+          <Property Name="KAdi" Type="varchar" MaxLength="50" />
+          <Property Name="Sifre" Type="varchar" MaxLength="50" />
+          <Property Name="Mail" Type="varchar" MaxLength="50" />
+          <Property Name="Yetki" Type="bit" />
+        </EntityType>
+        <EntityType Name="ANKT_Cevaplar">
+          <Key>
+            <PropertyRef Name="CevapID" />
+          </Key>
+          <Property Name="CevapID" Type="int" Nullable="false" />
+          <Property Name="SecenekID" Type="int" />
+          <Property Name="SoruID" Type="int" />
+          <Property Name="CevaplayanKisiID" Type="int" />
+          <Property Name="Bilgi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ANKT_Secenekler">
+          <Key>
+            <PropertyRef Name="SecenekID" />
+          </Key>
+          <Property Name="SecenekID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoruID" Type="int" />
+          <Property Name="Secenek" Type="varchar" MaxLength="250" />
+          <Property Name="EklenmeTarihi" Type="date" />
+          <Property Name="EkleyenKisiID" Type="int" />
+        </EntityType>
+        <EntityType Name="ANKT_Sorular">
+          <Key>
+            <PropertyRef Name="SoruID" />
+          </Key>
+          <Property Name="SoruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnketID" Type="int" />
+          <Property Name="Soru" Type="varchar" MaxLength="250" />
+          <Property Name="EklenmeTarihi" Type="date" />
+          <Property Name="EkleyenKisiID" Type="int" />
+          <Property Name="SoruTipi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_ANKT_Anketler_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Anketler" Type="Self.ANKT_Anketler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Anketler">
+              <PropertyRef Name="OlusturanKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Cevaplar_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Cevaplar" Type="Self.ANKT_Cevaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Cevaplar">
+              <PropertyRef Name="CevaplayanKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Cevaplar_ANKT_Secenekler">
+          <End Role="ANKT_Secenekler" Type="Self.ANKT_Secenekler" Multiplicity="0..1" />
+          <End Role="ANKT_Cevaplar" Type="Self.ANKT_Cevaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Secenekler">
+              <PropertyRef Name="SecenekID" />
+            </Principal>
+            <Dependent Role="ANKT_Cevaplar">
+              <PropertyRef Name="SecenekID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Cevaplar_ANKT_Sorular">
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="0..1" />
+          <End Role="ANKT_Cevaplar" Type="Self.ANKT_Cevaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Sorular">
+              <PropertyRef Name="SoruID" />
+            </Principal>
+            <Dependent Role="ANKT_Cevaplar">
+              <PropertyRef Name="SoruID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Secenekler_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Secenekler" Type="Self.ANKT_Secenekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Secenekler">
+              <PropertyRef Name="EkleyenKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Secenekler_ANKT_Sorular">
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="0..1" />
+          <End Role="ANKT_Secenekler" Type="Self.ANKT_Secenekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Sorular">
+              <PropertyRef Name="SoruID" />
+            </Principal>
+            <Dependent Role="ANKT_Secenekler">
+              <PropertyRef Name="SoruID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Sorular_ANKT_Anketler">
+          <End Role="ANKT_Anketler" Type="Self.ANKT_Anketler" Multiplicity="0..1" />
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Anketler">
+              <PropertyRef Name="AnketID" />
+            </Principal>
+            <Dependent Role="ANKT_Sorular">
+              <PropertyRef Name="AnketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Sorular_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Sorular">
+              <PropertyRef Name="EkleyenKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnketProjesiDBModelStoreContainer">
+          <EntitySet Name="ANKT_Anketler" EntityType="Self.ANKT_Anketler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ANKT_Calisanlar" EntityType="Self.ANKT_Calisanlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ANKT_Cevaplar" EntityType="Self.ANKT_Cevaplar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ANKT_Secenekler" EntityType="Self.ANKT_Secenekler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ANKT_Sorular" EntityType="Self.ANKT_Sorular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ANKT_Anketler_ANKT_Calisanlar" Association="Self.FK_ANKT_Anketler_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Anketler" EntitySet="ANKT_Anketler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Cevaplar_ANKT_Calisanlar" Association="Self.FK_ANKT_Cevaplar_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Cevaplar" EntitySet="ANKT_Cevaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Cevaplar_ANKT_Secenekler" Association="Self.FK_ANKT_Cevaplar_ANKT_Secenekler">
+            <End Role="ANKT_Secenekler" EntitySet="ANKT_Secenekler" />
+            <End Role="ANKT_Cevaplar" EntitySet="ANKT_Cevaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Cevaplar_ANKT_Sorular" Association="Self.FK_ANKT_Cevaplar_ANKT_Sorular">
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+            <End Role="ANKT_Cevaplar" EntitySet="ANKT_Cevaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Secenekler_ANKT_Calisanlar" Association="Self.FK_ANKT_Secenekler_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Secenekler" EntitySet="ANKT_Secenekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Secenekler_ANKT_Sorular" Association="Self.FK_ANKT_Secenekler_ANKT_Sorular">
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+            <End Role="ANKT_Secenekler" EntitySet="ANKT_Secenekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Sorular_ANKT_Anketler" Association="Self.FK_ANKT_Sorular_ANKT_Anketler">
+            <End Role="ANKT_Anketler" EntitySet="ANKT_Anketler" />
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Sorular_ANKT_Calisanlar" Association="Self.FK_ANKT_Sorular_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AnketProjesiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ANKT_Anketler">
+          <Key>
+            <PropertyRef Name="AnketID" />
+          </Key>
+          <Property Name="AnketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Anket" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="OlusturmaTarihi" Type="DateTime" Precision="0" />
+          <Property Name="YayinTarihi" Type="DateTime" Precision="0" />
+          <Property Name="BitisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="OlusturanKisiID" Type="Int32" />
+          <NavigationProperty Name="ANKT_Calisanlar" Relationship="Self.FK_ANKT_Anketler_ANKT_Calisanlar" FromRole="ANKT_Anketler" ToRole="ANKT_Calisanlar" />
+          <NavigationProperty Name="ANKT_Sorular" Relationship="Self.FK_ANKT_Sorular_ANKT_Anketler" FromRole="ANKT_Anketler" ToRole="ANKT_Sorular" />
+        </EntityType>
+        <EntityType Name="ANKT_Calisanlar">
+          <Key>
+            <PropertyRef Name="IsNo" />
+          </Key>
+          <Property Name="IsNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bolum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Yetki" Type="Boolean" />
+          <NavigationProperty Name="ANKT_Anketler" Relationship="Self.FK_ANKT_Anketler_ANKT_Calisanlar" FromRole="ANKT_Calisanlar" ToRole="ANKT_Anketler" />
+          <NavigationProperty Name="ANKT_Cevaplar" Relationship="Self.FK_ANKT_Cevaplar_ANKT_Calisanlar" FromRole="ANKT_Calisanlar" ToRole="ANKT_Cevaplar" />
+          <NavigationProperty Name="ANKT_Secenekler" Relationship="Self.FK_ANKT_Secenekler_ANKT_Calisanlar" FromRole="ANKT_Calisanlar" ToRole="ANKT_Secenekler" />
+          <NavigationProperty Name="ANKT_Sorular" Relationship="Self.FK_ANKT_Sorular_ANKT_Calisanlar" FromRole="ANKT_Calisanlar" ToRole="ANKT_Sorular" />
+        </EntityType>
+        <EntityType Name="ANKT_Cevaplar">
+          <Key>
+            <PropertyRef Name="CevapID" />
+          </Key>
+          <Property Name="CevapID" Type="Int32" Nullable="false" />
+          <Property Name="SecenekID" Type="Int32" />
+          <Property Name="SoruID" Type="Int32" />
+          <Property Name="CevaplayanKisiID" Type="Int32" />
+          <Property Name="Bilgi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ANKT_Calisanlar" Relationship="Self.FK_ANKT_Cevaplar_ANKT_Calisanlar" FromRole="ANKT_Cevaplar" ToRole="ANKT_Calisanlar" />
+          <NavigationProperty Name="ANKT_Secenekler" Relationship="Self.FK_ANKT_Cevaplar_ANKT_Secenekler" FromRole="ANKT_Cevaplar" ToRole="ANKT_Secenekler" />
+          <NavigationProperty Name="ANKT_Sorular" Relationship="Self.FK_ANKT_Cevaplar_ANKT_Sorular" FromRole="ANKT_Cevaplar" ToRole="ANKT_Sorular" />
+        </EntityType>
+        <EntityType Name="ANKT_Secenekler">
+          <Key>
+            <PropertyRef Name="SecenekID" />
+          </Key>
+          <Property Name="SecenekID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoruID" Type="Int32" />
+          <Property Name="Secenek" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EklenmeTarihi" Type="DateTime" Precision="0" />
+          <Property Name="EkleyenKisiID" Type="Int32" />
+          <NavigationProperty Name="ANKT_Calisanlar" Relationship="Self.FK_ANKT_Secenekler_ANKT_Calisanlar" FromRole="ANKT_Secenekler" ToRole="ANKT_Calisanlar" />
+          <NavigationProperty Name="ANKT_Cevaplar" Relationship="Self.FK_ANKT_Cevaplar_ANKT_Secenekler" FromRole="ANKT_Secenekler" ToRole="ANKT_Cevaplar" />
+          <NavigationProperty Name="ANKT_Sorular" Relationship="Self.FK_ANKT_Secenekler_ANKT_Sorular" FromRole="ANKT_Secenekler" ToRole="ANKT_Sorular" />
+        </EntityType>
+        <EntityType Name="ANKT_Sorular">
+          <Key>
+            <PropertyRef Name="SoruID" />
+          </Key>
+          <Property Name="SoruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnketID" Type="Int32" />
+          <Property Name="Soru" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EklenmeTarihi" Type="DateTime" Precision="0" />
+          <Property Name="EkleyenKisiID" Type="Int32" />
+          <Property Name="SoruTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ANKT_Anketler" Relationship="Self.FK_ANKT_Sorular_ANKT_Anketler" FromRole="ANKT_Sorular" ToRole="ANKT_Anketler" />
+          <NavigationProperty Name="ANKT_Calisanlar" Relationship="Self.FK_ANKT_Sorular_ANKT_Calisanlar" FromRole="ANKT_Sorular" ToRole="ANKT_Calisanlar" />
+          <NavigationProperty Name="ANKT_Cevaplar" Relationship="Self.FK_ANKT_Cevaplar_ANKT_Sorular" FromRole="ANKT_Sorular" ToRole="ANKT_Cevaplar" />
+          <NavigationProperty Name="ANKT_Secenekler" Relationship="Self.FK_ANKT_Secenekler_ANKT_Sorular" FromRole="ANKT_Sorular" ToRole="ANKT_Secenekler" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_ANKT_Anketler_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Anketler" Type="Self.ANKT_Anketler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Anketler">
+              <PropertyRef Name="OlusturanKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Sorular_ANKT_Anketler">
+          <End Role="ANKT_Anketler" Type="Self.ANKT_Anketler" Multiplicity="0..1" />
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Anketler">
+              <PropertyRef Name="AnketID" />
+            </Principal>
+            <Dependent Role="ANKT_Sorular">
+              <PropertyRef Name="AnketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Cevaplar_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Cevaplar" Type="Self.ANKT_Cevaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Cevaplar">
+              <PropertyRef Name="CevaplayanKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Secenekler_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Secenekler" Type="Self.ANKT_Secenekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Secenekler">
+              <PropertyRef Name="EkleyenKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Sorular_ANKT_Calisanlar">
+          <End Role="ANKT_Calisanlar" Type="Self.ANKT_Calisanlar" Multiplicity="0..1" />
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Calisanlar">
+              <PropertyRef Name="IsNo" />
+            </Principal>
+            <Dependent Role="ANKT_Sorular">
+              <PropertyRef Name="EkleyenKisiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Cevaplar_ANKT_Secenekler">
+          <End Role="ANKT_Secenekler" Type="Self.ANKT_Secenekler" Multiplicity="0..1" />
+          <End Role="ANKT_Cevaplar" Type="Self.ANKT_Cevaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Secenekler">
+              <PropertyRef Name="SecenekID" />
+            </Principal>
+            <Dependent Role="ANKT_Cevaplar">
+              <PropertyRef Name="SecenekID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Cevaplar_ANKT_Sorular">
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="0..1" />
+          <End Role="ANKT_Cevaplar" Type="Self.ANKT_Cevaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Sorular">
+              <PropertyRef Name="SoruID" />
+            </Principal>
+            <Dependent Role="ANKT_Cevaplar">
+              <PropertyRef Name="SoruID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ANKT_Secenekler_ANKT_Sorular">
+          <End Role="ANKT_Sorular" Type="Self.ANKT_Sorular" Multiplicity="0..1" />
+          <End Role="ANKT_Secenekler" Type="Self.ANKT_Secenekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ANKT_Sorular">
+              <PropertyRef Name="SoruID" />
+            </Principal>
+            <Dependent Role="ANKT_Secenekler">
+              <PropertyRef Name="SoruID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnketProjesiDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ANKT_Anketler" EntityType="Self.ANKT_Anketler" />
+          <EntitySet Name="ANKT_Calisanlar" EntityType="Self.ANKT_Calisanlar" />
+          <EntitySet Name="ANKT_Cevaplar" EntityType="Self.ANKT_Cevaplar" />
+          <EntitySet Name="ANKT_Secenekler" EntityType="Self.ANKT_Secenekler" />
+          <EntitySet Name="ANKT_Sorular" EntityType="Self.ANKT_Sorular" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_ANKT_Anketler_ANKT_Calisanlar" Association="Self.FK_ANKT_Anketler_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Anketler" EntitySet="ANKT_Anketler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Sorular_ANKT_Anketler" Association="Self.FK_ANKT_Sorular_ANKT_Anketler">
+            <End Role="ANKT_Anketler" EntitySet="ANKT_Anketler" />
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Cevaplar_ANKT_Calisanlar" Association="Self.FK_ANKT_Cevaplar_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Cevaplar" EntitySet="ANKT_Cevaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Secenekler_ANKT_Calisanlar" Association="Self.FK_ANKT_Secenekler_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Secenekler" EntitySet="ANKT_Secenekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Sorular_ANKT_Calisanlar" Association="Self.FK_ANKT_Sorular_ANKT_Calisanlar">
+            <End Role="ANKT_Calisanlar" EntitySet="ANKT_Calisanlar" />
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Cevaplar_ANKT_Secenekler" Association="Self.FK_ANKT_Cevaplar_ANKT_Secenekler">
+            <End Role="ANKT_Secenekler" EntitySet="ANKT_Secenekler" />
+            <End Role="ANKT_Cevaplar" EntitySet="ANKT_Cevaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Cevaplar_ANKT_Sorular" Association="Self.FK_ANKT_Cevaplar_ANKT_Sorular">
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+            <End Role="ANKT_Cevaplar" EntitySet="ANKT_Cevaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ANKT_Secenekler_ANKT_Sorular" Association="Self.FK_ANKT_Secenekler_ANKT_Sorular">
+            <End Role="ANKT_Sorular" EntitySet="ANKT_Sorular" />
+            <End Role="ANKT_Secenekler" EntitySet="ANKT_Secenekler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AnketProjesiDBModelStoreContainer" CdmEntityContainer="AnketProjesiDBEntities">
+          <EntitySetMapping Name="ANKT_Anketler">
+            <EntityTypeMapping TypeName="AnketProjesiDBModel.ANKT_Anketler">
+              <MappingFragment StoreEntitySet="ANKT_Anketler">
+                <ScalarProperty Name="AnketID" ColumnName="AnketID" />
+                <ScalarProperty Name="Anket" ColumnName="Anket" />
+                <ScalarProperty Name="OlusturmaTarihi" ColumnName="OlusturmaTarihi" />
+                <ScalarProperty Name="YayinTarihi" ColumnName="YayinTarihi" />
+                <ScalarProperty Name="BitisTarihi" ColumnName="BitisTarihi" />
+                <ScalarProperty Name="OlusturanKisiID" ColumnName="OlusturanKisiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ANKT_Calisanlar">
+            <EntityTypeMapping TypeName="AnketProjesiDBModel.ANKT_Calisanlar">
+              <MappingFragment StoreEntitySet="ANKT_Calisanlar">
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+                <ScalarProperty Name="KAdi" ColumnName="KAdi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ANKT_Cevaplar">
+            <EntityTypeMapping TypeName="AnketProjesiDBModel.ANKT_Cevaplar">
+              <MappingFragment StoreEntitySet="ANKT_Cevaplar">
+                <ScalarProperty Name="CevapID" ColumnName="CevapID" />
+                <ScalarProperty Name="SecenekID" ColumnName="SecenekID" />
+                <ScalarProperty Name="SoruID" ColumnName="SoruID" />
+                <ScalarProperty Name="CevaplayanKisiID" ColumnName="CevaplayanKisiID" />
+                <ScalarProperty Name="Bilgi" ColumnName="Bilgi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ANKT_Secenekler">
+            <EntityTypeMapping TypeName="AnketProjesiDBModel.ANKT_Secenekler">
+              <MappingFragment StoreEntitySet="ANKT_Secenekler">
+                <ScalarProperty Name="SecenekID" ColumnName="SecenekID" />
+                <ScalarProperty Name="SoruID" ColumnName="SoruID" />
+                <ScalarProperty Name="Secenek" ColumnName="Secenek" />
+                <ScalarProperty Name="EklenmeTarihi" ColumnName="EklenmeTarihi" />
+                <ScalarProperty Name="EkleyenKisiID" ColumnName="EkleyenKisiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ANKT_Sorular">
+            <EntityTypeMapping TypeName="AnketProjesiDBModel.ANKT_Sorular">
+              <MappingFragment StoreEntitySet="ANKT_Sorular">
+                <ScalarProperty Name="SoruID" ColumnName="SoruID" />
+                <ScalarProperty Name="AnketID" ColumnName="AnketID" />
+                <ScalarProperty Name="Soru" ColumnName="Soru" />
+                <ScalarProperty Name="EklenmeTarihi" ColumnName="EklenmeTarihi" />
+                <ScalarProperty Name="EkleyenKisiID" ColumnName="EkleyenKisiID" />
+                <ScalarProperty Name="SoruTipi" ColumnName="SoruTipi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AnketProjesiDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

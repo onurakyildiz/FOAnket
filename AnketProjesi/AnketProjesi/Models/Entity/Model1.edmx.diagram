@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3793767706141dbb03fcd07fa15f1cf" Name="Diagram1">
+        <EntityTypeShape EntityType="AnketProjesiDBModel.ANKT_Anketler" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketProjesiDBModel.ANKT_Calisanlar" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketProjesiDBModel.ANKT_Cevaplar" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketProjesiDBModel.ANKT_Secenekler" Width="1.5" PointX="10.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketProjesiDBModel.ANKT_Sorular" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketProjesiDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Anketler_ANKT_Calisanlar" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Sorular_ANKT_Anketler" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Cevaplar_ANKT_Calisanlar" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Secenekler_ANKT_Calisanlar" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Sorular_ANKT_Calisanlar" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Cevaplar_ANKT_Secenekler" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Cevaplar_ANKT_Sorular" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketProjesiDBModel.FK_ANKT_Secenekler_ANKT_Sorular" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
