@@ -1,0 +1,32 @@
+html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card {
+        color: #fff;
+        background-color: #0b3770;
+        transition: background-color 0.9s ease-in-out 0.1s;
+      }
+
+      .card:hover {
+        background-color: #a4a6a6;
+        cursor: pointer;
+      }
+      .card-text {
+        color: #fff;
+      }
+
+      .btn{
+        opacity: 0.7;
+      }
+
+      .btn:hover{
+        opacity: 1;
+      }
