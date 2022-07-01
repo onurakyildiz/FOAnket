@@ -11,7 +11,7 @@ html,
 
       .card {
         color: #fff;
-        background-color: #0b3770;
+        background-color: blue;
         transition: background-color 0.9s ease-in-out 0.1s;
       }
 
