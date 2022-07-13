@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Anketler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@model Anket_Projesi_Ford_Otosan.Models.Anket*@
+<style>
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        color: #fff;
+        background-color: blue;
+        transition: background-color 0.4s ease-in-out 0.1s;
+        border-radius: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+        .card:hover {
+            background-color: #a4a6a6;
+            cursor: pointer;
+        }
+
+    .card-text {
+        color: #fff;
+    }
+
+    .btn {
+        border-radius: 0;
+        padding-left: 14px;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+        .btn:hover {
+            opacity: 1;
+        }
+
+    .card-header, .card-body, .card-footer {
+        padding-left: 1px;
+    }
+</style>
+<div class="container row row-cols-1 row-cols-md-3 g-4">
+    @*@foreach (var item in Model)
+    {
+        <div class="card border-light mx-1" style="max-width: 18rem">
+            <div class="card-header bg-transparent border-light">Anket Adı: @item.CH_ANKET</div>
+            <div class="card-body text-black">
+                <p class="card-text">Anket Açıklaması: @item.CH_ANKET</p>
+            </div>
+            <div class="card-footer bg-transparent border-light">
+                @item.DT_YAYIN_TARIHI - @item.DT_BITIS_TARIHI
+
+            </div>
+            <div class="card-footer bg-transparent border-light d-flex justify-content-between">
+                <button type="button" class="btn btn-success">Cevapla</button>
+                <button type="button" class="btn btn-warning" @if (ViewBag.Yetki == false) { <text> hidden</text>}>Güncelle</button>
+                <button type="button" class="btn btn-danger" @if (ViewBag.Yetki == false) { <text> hidden</text>}>Sil</button>
+            </div>
+        </div>
+    }*@
+
+
+
+</div>
+
