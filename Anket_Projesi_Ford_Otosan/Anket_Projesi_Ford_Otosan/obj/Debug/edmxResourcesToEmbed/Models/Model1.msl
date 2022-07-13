@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ANKET_DBModelStoreContainer" CdmEntityContainer="ANKET_DBEntities">
+    <EntitySetMapping Name="ANK_ANKETLER">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_ANKETLER">
+        <MappingFragment StoreEntitySet="ANK_ANKETLER">
+          <ScalarProperty Name="SQ_ANKET_ID" ColumnName="SQ_ANKET_ID" />
+          <ScalarProperty Name="CH_ANKET" ColumnName="CH_ANKET" />
+          <ScalarProperty Name="DT_OLUS_TARIHI" ColumnName="DT_OLUS_TARIHI" />
+          <ScalarProperty Name="DT_YAYIN_TARIHI" ColumnName="DT_YAYIN_TARIHI" />
+          <ScalarProperty Name="DT_BITIS_TARIHI" ColumnName="DT_BITIS_TARIHI" />
+          <ScalarProperty Name="CD_OLUS_KISI" ColumnName="CD_OLUS_KISI" />
+          <ScalarProperty Name="CD_GUNC_KISI" ColumnName="CD_GUNC_KISI" />
+          <ScalarProperty Name="DT_GUNC_TARIHI" ColumnName="DT_GUNC_TARIHI" />
+          <ScalarProperty Name="SW_DURUM" ColumnName="SW_DURUM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANK_CALISANLAR">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_CALISANLAR">
+        <MappingFragment StoreEntitySet="ANK_CALISANLAR">
+          <ScalarProperty Name="SQ_IS_NO" ColumnName="SQ_IS_NO" />
+          <ScalarProperty Name="CH_AD" ColumnName="CH_AD" />
+          <ScalarProperty Name="CH_SOYAD" ColumnName="CH_SOYAD" />
+          <ScalarProperty Name="CH_BOLUM" ColumnName="CH_BOLUM" />
+          <ScalarProperty Name="CH_KUL_ADI" ColumnName="CH_KUL_ADI" />
+          <ScalarProperty Name="CH_SIFRE" ColumnName="CH_SIFRE" />
+          <ScalarProperty Name="CH_MAIL" ColumnName="CH_MAIL" />
+          <ScalarProperty Name="SW_YETKI" ColumnName="SW_YETKI" />
+          <ScalarProperty Name="CD_EKL_KISI" ColumnName="CD_EKL_KISI" />
+          <ScalarProperty Name="DT_EKL_TARIHI" ColumnName="DT_EKL_TARIHI" />
+          <ScalarProperty Name="CD_GUNC_KISI" ColumnName="CD_GUNC_KISI" />
+          <ScalarProperty Name="DT_GUNC_TARIHI" ColumnName="DT_GUNC_TARIHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANK_CEVAPLAR">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_CEVAPLAR">
+        <MappingFragment StoreEntitySet="ANK_CEVAPLAR">
+          <ScalarProperty Name="SQ_CEVAP_ID" ColumnName="SQ_CEVAP_ID" />
+          <ScalarProperty Name="CD_SECENEK_ID" ColumnName="CD_SECENEK_ID" />
+          <ScalarProperty Name="CD_SORU_ID" ColumnName="CD_SORU_ID" />
+          <ScalarProperty Name="CD_CEVAPLAYAN_KISI" ColumnName="CD_CEVAPLAYAN_KISI" />
+          <ScalarProperty Name="CH_BILGI" ColumnName="CH_BILGI" />
+          <ScalarProperty Name="CD_NESNE_ID" ColumnName="CD_NESNE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANK_NESNELER">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_NESNELER">
+        <MappingFragment StoreEntitySet="ANK_NESNELER">
+          <ScalarProperty Name="SQ_NESNE_ID" ColumnName="SQ_NESNE_ID" />
+          <ScalarProperty Name="CH_NESNE" ColumnName="CH_NESNE" />
+          <ScalarProperty Name="CD_EKL_KISI" ColumnName="CD_EKL_KISI" />
+          <ScalarProperty Name="DT_EKL_TARIHI" ColumnName="DT_EKL_TARIHI" />
+          <ScalarProperty Name="CD_GUNC_KISI" ColumnName="CD_GUNC_KISI" />
+          <ScalarProperty Name="DT_GUNC_TARIHI" ColumnName="DT_GUNC_TARIHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANK_REFERANSLAR">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_REFERANSLAR">
+        <MappingFragment StoreEntitySet="ANK_REFERANSLAR">
+          <ScalarProperty Name="SQ_REF_ID" ColumnName="SQ_REF_ID" />
+          <ScalarProperty Name="CH_REF_ANAHTAR" ColumnName="CH_REF_ANAHTAR" />
+          <ScalarProperty Name="CD_REF_DEGER" ColumnName="CD_REF_DEGER" />
+          <ScalarProperty Name="CH_REF_ACIKLAMA" ColumnName="CH_REF_ACIKLAMA" />
+          <ScalarProperty Name="CD_EKL_KISI" ColumnName="CD_EKL_KISI" />
+          <ScalarProperty Name="DT_EKL_TARIHI" ColumnName="DT_EKL_TARIHI" />
+          <ScalarProperty Name="CD_GUNC_KISI" ColumnName="CD_GUNC_KISI" />
+          <ScalarProperty Name="DT_GUNC_TARIHI" ColumnName="DT_GUNC_TARIHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANK_SECENEKLER">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_SECENEKLER">
+        <MappingFragment StoreEntitySet="ANK_SECENEKLER">
+          <ScalarProperty Name="SQ_SECENEK_ID" ColumnName="SQ_SECENEK_ID" />
+          <ScalarProperty Name="CD_SORU_ID" ColumnName="CD_SORU_ID" />
+          <ScalarProperty Name="CH_SECENEK" ColumnName="CH_SECENEK" />
+          <ScalarProperty Name="DT_EKL_TARIHI" ColumnName="DT_EKL_TARIHI" />
+          <ScalarProperty Name="CD_EKL_KISI" ColumnName="CD_EKL_KISI" />
+          <ScalarProperty Name="DT_GUNC_TARIHI" ColumnName="DT_GUNC_TARIHI" />
+          <ScalarProperty Name="CD_GUNC_KISI" ColumnName="CD_GUNC_KISI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANK_SORULAR">
+      <EntityTypeMapping TypeName="ANKET_DBModel.ANK_SORULAR">
+        <MappingFragment StoreEntitySet="ANK_SORULAR">
+          <ScalarProperty Name="SQ_SORU_ID" ColumnName="SQ_SORU_ID" />
+          <ScalarProperty Name="CD_ANKET_ID" ColumnName="CD_ANKET_ID" />
+          <ScalarProperty Name="CH_SORU" ColumnName="CH_SORU" />
+          <ScalarProperty Name="DT_EKL_TARIHI" ColumnName="DT_EKL_TARIHI" />
+          <ScalarProperty Name="CD_EKL_KISI" ColumnName="CD_EKL_KISI" />
+          <ScalarProperty Name="CD_GUNC_KISI" ColumnName="CD_GUNC_KISI" />
+          <ScalarProperty Name="DT_GUNC_TARIHI" ColumnName="DT_GUNC_TARIHI" />
+          <ScalarProperty Name="CD_REF_ID" ColumnName="CD_REF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ANKET_DBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
