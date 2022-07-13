@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ANKET_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ANK_ANKETLER">
+    <Key>
+      <PropertyRef Name="SQ_ANKET_ID" />
+    </Key>
+    <Property Name="SQ_ANKET_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CH_ANKET" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DT_OLUS_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="DT_YAYIN_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="DT_BITIS_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_OLUS_KISI" Type="Int32" />
+    <Property Name="CD_GUNC_KISI" Type="Int32" />
+    <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="SW_DURUM" Type="Boolean" />
+    <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_ANKETLER_ANK_CALISANLAR" FromRole="ANK_ANKETLER" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_CALISANLAR1" Relationship="Self.FK_ANK_ANKETLER_ANK_CALISANLAR1" FromRole="ANK_ANKETLER" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SORULAR_ANK_ANKETLER" FromRole="ANK_ANKETLER" ToRole="ANK_SORULAR" />
+  </EntityType>
+  <EntityType Name="ANK_CALISANLAR">
+    <Key>
+      <PropertyRef Name="SQ_IS_NO" />
+    </Key>
+    <Property Name="SQ_IS_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CH_AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CH_SOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CH_BOLUM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CH_KUL_ADI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CH_SIFRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CH_MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SW_YETKI" Type="Boolean" />
+    <Property Name="CD_EKL_KISI" Type="Int32" />
+    <Property Name="DT_EKL_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_GUNC_KISI" Type="Int32" />
+    <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="ANK_ANKETLER" Relationship="Self.FK_ANK_ANKETLER_ANK_CALISANLAR" FromRole="ANK_CALISANLAR" ToRole="ANK_ANKETLER" />
+    <NavigationProperty Name="ANK_ANKETLER1" Relationship="Self.FK_ANK_ANKETLER_ANK_CALISANLAR1" FromRole="ANK_CALISANLAR" ToRole="ANK_ANKETLER" />
+    <NavigationProperty Name="ANK_CEVAPLAR" Relationship="Self.FK_ANK_CEVAPLAR_ANK_CALISANLAR" FromRole="ANK_CALISANLAR" ToRole="ANK_CEVAPLAR" />
+    <NavigationProperty Name="ANK_NESNELER" Relationship="Self.FK_ANK_NESNELER_ANK_CALISANLAR" FromRole="ANK_CALISANLAR" ToRole="ANK_NESNELER" />
+    <NavigationProperty Name="ANK_REFERANSLAR" Relationship="Self.FK_ANK_REFERANSLAR_ANK_CALISANLAR" FromRole="ANK_CALISANLAR" ToRole="ANK_REFERANSLAR" />
+    <NavigationProperty Name="ANK_SECENEKLER" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR" FromRole="ANK_CALISANLAR" ToRole="ANK_SECENEKLER" />
+    <NavigationProperty Name="ANK_SECENEKLER1" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR1" FromRole="ANK_CALISANLAR" ToRole="ANK_SECENEKLER" />
+    <NavigationProperty Name="ANK_SECENEKLER2" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR2" FromRole="ANK_CALISANLAR" ToRole="ANK_SECENEKLER" />
+    <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SORULAR_ANK_CALISANLAR" FromRole="ANK_CALISANLAR" ToRole="ANK_SORULAR" />
+    <NavigationProperty Name="ANK_SORULAR1" Relationship="Self.FK_ANK_SORULAR_ANK_CALISANLAR1" FromRole="ANK_CALISANLAR" ToRole="ANK_SORULAR" />
+  </EntityType>
+  <EntityType Name="ANK_CEVAPLAR">
+    <Key>
+      <PropertyRef Name="SQ_CEVAP_ID" />
+    </Key>
+    <Property Name="SQ_CEVAP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CD_SECENEK_ID" Type="Int32" />
+    <Property Name="CD_SORU_ID" Type="Int32" />
+    <Property Name="CD_CEVAPLAYAN_KISI" Type="Int32" />
+    <Property Name="CH_BILGI" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CD_NESNE_ID" Type="Int32" />
+    <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_CEVAPLAR_ANK_CALISANLAR" FromRole="ANK_CEVAPLAR" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_NESNELER" Relationship="Self.FK_ANK_CEVAPLAR_ANK_NESNELER" FromRole="ANK_CEVAPLAR" ToRole="ANK_NESNELER" />
+  </EntityType>
+  <EntityType Name="ANK_NESNELER">
+    <Key>
+      <PropertyRef Name="SQ_NESNE_ID" />
+    </Key>
+    <Property Name="SQ_NESNE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CH_NESNE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CD_EKL_KISI" Type="Int32" />
+    <Property Name="DT_EKL_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_GUNC_KISI" Type="Int32" />
+    <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_NESNELER_ANK_CALISANLAR" FromRole="ANK_NESNELER" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_CEVAPLAR" Relationship="Self.FK_ANK_CEVAPLAR_ANK_NESNELER" FromRole="ANK_NESNELER" ToRole="ANK_CEVAPLAR" />
+    <NavigationProperty Name="ANK_REFERANSLAR" Relationship="Self.FK_ANK_REFERANSLAR_ANK_NESNELER" FromRole="ANK_NESNELER" ToRole="ANK_REFERANSLAR" />
+  </EntityType>
+  <EntityType Name="ANK_REFERANSLAR">
+    <Key>
+      <PropertyRef Name="SQ_REF_ID" />
+    </Key>
+    <Property Name="SQ_REF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CH_REF_ANAHTAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CD_REF_DEGER" Type="Int32" />
+    <Property Name="CH_REF_ACIKLAMA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CD_EKL_KISI" Type="Int32" />
+    <Property Name="DT_EKL_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_GUNC_KISI" Type="Int32" />
+    <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_REFERANSLAR_ANK_CALISANLAR" FromRole="ANK_REFERANSLAR" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_NESNELER" Relationship="Self.FK_ANK_REFERANSLAR_ANK_NESNELER" FromRole="ANK_REFERANSLAR" ToRole="ANK_NESNELER" />
+    <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SORULAR_ANK_REFERANSLAR" FromRole="ANK_REFERANSLAR" ToRole="ANK_SORULAR" />
+  </EntityType>
+  <EntityType Name="ANK_SECENEKLER">
+    <Key>
+      <PropertyRef Name="SQ_SECENEK_ID" />
+    </Key>
+    <Property Name="SQ_SECENEK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CD_SORU_ID" Type="Int32" />
+    <Property Name="CH_SECENEK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DT_EKL_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_EKL_KISI" Type="Int32" />
+    <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_GUNC_KISI" Type="Int32" />
+    <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR" FromRole="ANK_SECENEKLER" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_CALISANLAR1" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR1" FromRole="ANK_SECENEKLER" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_CALISANLAR2" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR2" FromRole="ANK_SECENEKLER" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SECENEKLER_ANK_SORULAR" FromRole="ANK_SECENEKLER" ToRole="ANK_SORULAR" />
+  </EntityType>
+  <EntityType Name="ANK_SORULAR">
+    <Key>
+      <PropertyRef Name="SQ_SORU_ID" />
+    </Key>
+    <Property Name="SQ_SORU_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CD_ANKET_ID" Type="Int32" />
+    <Property Name="CH_SORU" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DT_EKL_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_EKL_KISI" Type="Int32" />
+    <Property Name="CD_GUNC_KISI" Type="Int32" />
+    <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
+    <Property Name="CD_REF_ID" Type="Int32" />
+    <NavigationProperty Name="ANK_ANKETLER" Relationship="Self.FK_ANK_SORULAR_ANK_ANKETLER" FromRole="ANK_SORULAR" ToRole="ANK_ANKETLER" />
+    <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_SORULAR_ANK_CALISANLAR" FromRole="ANK_SORULAR" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_CALISANLAR1" Relationship="Self.FK_ANK_SORULAR_ANK_CALISANLAR1" FromRole="ANK_SORULAR" ToRole="ANK_CALISANLAR" />
+    <NavigationProperty Name="ANK_REFERANSLAR" Relationship="Self.FK_ANK_SORULAR_ANK_REFERANSLAR" FromRole="ANK_SORULAR" ToRole="ANK_REFERANSLAR" />
+    <NavigationProperty Name="ANK_SECENEKLER" Relationship="Self.FK_ANK_SECENEKLER_ANK_SORULAR" FromRole="ANK_SORULAR" ToRole="ANK_SECENEKLER" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_ANK_ANKETLER_ANK_CALISANLAR">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_ANKETLER" Type="Self.ANK_ANKETLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_ANKETLER">
+        <PropertyRef Name="CD_OLUS_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_ANKETLER_ANK_CALISANLAR1">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_ANKETLER" Type="Self.ANK_ANKETLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_ANKETLER">
+        <PropertyRef Name="CD_GUNC_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SORULAR_ANK_ANKETLER">
+    <End Role="ANK_ANKETLER" Type="Self.ANK_ANKETLER" Multiplicity="0..1" />
+    <End Role="ANK_SORULAR" Type="Self.ANK_SORULAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_ANKETLER">
+        <PropertyRef Name="SQ_ANKET_ID" />
+      </Principal>
+      <Dependent Role="ANK_SORULAR">
+        <PropertyRef Name="CD_ANKET_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_CEVAPLAR_ANK_CALISANLAR">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_CEVAPLAR" Type="Self.ANK_CEVAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_CEVAPLAR">
+        <PropertyRef Name="CD_CEVAPLAYAN_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_NESNELER_ANK_CALISANLAR">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_NESNELER" Type="Self.ANK_NESNELER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_NESNELER">
+        <PropertyRef Name="CD_GUNC_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_REFERANSLAR_ANK_CALISANLAR">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_REFERANSLAR" Type="Self.ANK_REFERANSLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_REFERANSLAR">
+        <PropertyRef Name="CD_GUNC_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SECENEKLER_ANK_CALISANLAR">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_SECENEKLER" Type="Self.ANK_SECENEKLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_SECENEKLER">
+        <PropertyRef Name="CD_EKL_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SECENEKLER_ANK_CALISANLAR1">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_SECENEKLER" Type="Self.ANK_SECENEKLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_SECENEKLER">
+        <PropertyRef Name="CD_EKL_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SECENEKLER_ANK_CALISANLAR2">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_SECENEKLER" Type="Self.ANK_SECENEKLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_SECENEKLER">
+        <PropertyRef Name="CD_GUNC_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SORULAR_ANK_CALISANLAR">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_SORULAR" Type="Self.ANK_SORULAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_SORULAR">
+        <PropertyRef Name="CD_EKL_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SORULAR_ANK_CALISANLAR1">
+    <End Role="ANK_CALISANLAR" Type="Self.ANK_CALISANLAR" Multiplicity="0..1" />
+    <End Role="ANK_SORULAR" Type="Self.ANK_SORULAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_CALISANLAR">
+        <PropertyRef Name="SQ_IS_NO" />
+      </Principal>
+      <Dependent Role="ANK_SORULAR">
+        <PropertyRef Name="CD_GUNC_KISI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_CEVAPLAR_ANK_NESNELER">
+    <End Role="ANK_NESNELER" Type="Self.ANK_NESNELER" Multiplicity="0..1" />
+    <End Role="ANK_CEVAPLAR" Type="Self.ANK_CEVAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_NESNELER">
+        <PropertyRef Name="SQ_NESNE_ID" />
+      </Principal>
+      <Dependent Role="ANK_CEVAPLAR">
+        <PropertyRef Name="CD_NESNE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_REFERANSLAR_ANK_NESNELER">
+    <End Role="ANK_NESNELER" Type="Self.ANK_NESNELER" Multiplicity="0..1" />
+    <End Role="ANK_REFERANSLAR" Type="Self.ANK_REFERANSLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_NESNELER">
+        <PropertyRef Name="SQ_NESNE_ID" />
+      </Principal>
+      <Dependent Role="ANK_REFERANSLAR">
+        <PropertyRef Name="CD_REF_DEGER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SORULAR_ANK_REFERANSLAR">
+    <End Role="ANK_REFERANSLAR" Type="Self.ANK_REFERANSLAR" Multiplicity="0..1" />
+    <End Role="ANK_SORULAR" Type="Self.ANK_SORULAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_REFERANSLAR">
+        <PropertyRef Name="SQ_REF_ID" />
+      </Principal>
+      <Dependent Role="ANK_SORULAR">
+        <PropertyRef Name="CD_REF_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_SECENEKLER_ANK_SORULAR">
+    <End Role="ANK_SORULAR" Type="Self.ANK_SORULAR" Multiplicity="0..1" />
+    <End Role="ANK_SECENEKLER" Type="Self.ANK_SECENEKLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_SORULAR">
+        <PropertyRef Name="SQ_SORU_ID" />
+      </Principal>
+      <Dependent Role="ANK_SECENEKLER">
+        <PropertyRef Name="CD_SORU_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ANKET_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ANK_ANKETLER" EntityType="Self.ANK_ANKETLER" />
+    <EntitySet Name="ANK_CALISANLAR" EntityType="Self.ANK_CALISANLAR" />
+    <EntitySet Name="ANK_CEVAPLAR" EntityType="Self.ANK_CEVAPLAR" />
+    <EntitySet Name="ANK_NESNELER" EntityType="Self.ANK_NESNELER" />
+    <EntitySet Name="ANK_REFERANSLAR" EntityType="Self.ANK_REFERANSLAR" />
+    <EntitySet Name="ANK_SECENEKLER" EntityType="Self.ANK_SECENEKLER" />
+    <EntitySet Name="ANK_SORULAR" EntityType="Self.ANK_SORULAR" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_ANK_ANKETLER_ANK_CALISANLAR" Association="Self.FK_ANK_ANKETLER_ANK_CALISANLAR">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_ANKETLER" EntitySet="ANK_ANKETLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_ANKETLER_ANK_CALISANLAR1" Association="Self.FK_ANK_ANKETLER_ANK_CALISANLAR1">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_ANKETLER" EntitySet="ANK_ANKETLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SORULAR_ANK_ANKETLER" Association="Self.FK_ANK_SORULAR_ANK_ANKETLER">
+      <End Role="ANK_ANKETLER" EntitySet="ANK_ANKETLER" />
+      <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_CEVAPLAR_ANK_CALISANLAR" Association="Self.FK_ANK_CEVAPLAR_ANK_CALISANLAR">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_CEVAPLAR" EntitySet="ANK_CEVAPLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_NESNELER_ANK_CALISANLAR" Association="Self.FK_ANK_NESNELER_ANK_CALISANLAR">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_NESNELER" EntitySet="ANK_NESNELER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_REFERANSLAR_ANK_CALISANLAR" Association="Self.FK_ANK_REFERANSLAR_ANK_CALISANLAR">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_REFERANSLAR" EntitySet="ANK_REFERANSLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SECENEKLER_ANK_CALISANLAR" Association="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_SECENEKLER" EntitySet="ANK_SECENEKLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SECENEKLER_ANK_CALISANLAR1" Association="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR1">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_SECENEKLER" EntitySet="ANK_SECENEKLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SECENEKLER_ANK_CALISANLAR2" Association="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR2">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_SECENEKLER" EntitySet="ANK_SECENEKLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SORULAR_ANK_CALISANLAR" Association="Self.FK_ANK_SORULAR_ANK_CALISANLAR">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SORULAR_ANK_CALISANLAR1" Association="Self.FK_ANK_SORULAR_ANK_CALISANLAR1">
+      <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
+      <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_CEVAPLAR_ANK_NESNELER" Association="Self.FK_ANK_CEVAPLAR_ANK_NESNELER">
+      <End Role="ANK_NESNELER" EntitySet="ANK_NESNELER" />
+      <End Role="ANK_CEVAPLAR" EntitySet="ANK_CEVAPLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_REFERANSLAR_ANK_NESNELER" Association="Self.FK_ANK_REFERANSLAR_ANK_NESNELER">
+      <End Role="ANK_NESNELER" EntitySet="ANK_NESNELER" />
+      <End Role="ANK_REFERANSLAR" EntitySet="ANK_REFERANSLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SORULAR_ANK_REFERANSLAR" Association="Self.FK_ANK_SORULAR_ANK_REFERANSLAR">
+      <End Role="ANK_REFERANSLAR" EntitySet="ANK_REFERANSLAR" />
+      <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_SECENEKLER_ANK_SORULAR" Association="Self.FK_ANK_SECENEKLER_ANK_SORULAR">
+      <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
+      <End Role="ANK_SECENEKLER" EntitySet="ANK_SECENEKLER" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

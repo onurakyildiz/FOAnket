@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4d2fcd6e22346b497a17abc54be3fe3" Name="Diagram1">
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_ANKETLER" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_CALISANLAR" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_CEVAPLAR" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_NESNELER" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_REFERANSLAR" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_SECENEKLER" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.ANK_SORULAR" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANKET_DBModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_ANKETLER_ANK_CALISANLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_ANKETLER_ANK_CALISANLAR1" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_ANKETLER" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_CALISANLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_NESNELER_ANK_CALISANLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_REFERANSLAR_ANK_CALISANLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_CALISANLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_CALISANLAR1" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_CALISANLAR2" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_CALISANLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_CALISANLAR1" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_NESNELER" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_REFERANSLAR_ANK_NESNELER" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_REFERANSLAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_SORULAR" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

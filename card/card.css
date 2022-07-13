@@ -1,0 +1,43 @@
+      html,
+      body {
+        height: 100%;
+      }
+      
+      .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card {
+        color: #fff;
+        background-color: blue;
+        transition: background-color 0.4s ease-in-out 0.1s;
+        border-radius: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+
+      .card:hover {
+        background-color: #a4a6a6;
+        cursor: pointer;
+      }
+      .card-text {
+        color: #fff;
+      }
+
+      .btn{
+        border-radius: 0;
+        opacity: 0.7;
+        padding-left: 14px;
+        margin-top: 10px;
+        margin-right: 10px;
+      }
+
+      .btn:hover{
+        opacity: 1;
+      }
+
+      .card-header,.card-body,.card-footer{
+        padding-left: 1px;
+      }
