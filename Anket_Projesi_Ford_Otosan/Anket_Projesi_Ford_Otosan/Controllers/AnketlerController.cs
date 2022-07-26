@@ -38,8 +38,11 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
                     else
                     {
                         //Anket Listeleme
-                        var ank = (from e in db.ANK_ANKETLER  select e).FirstOrDefault();
-                        return View(ank);
+                        Anket anketlist = new Anket();
+                        List<ANK_ANKETLER> list1 = db.ANK_ANKETLER.ToList();
+                        List<ANK_SORULAR> list2 = db.ANK_SORULAR.ToList();
+                        anketlist.AnketList = new Tuple<List<ANK_ANKETLER>,List<ANK_SORULAR>>(list1,list2);
+                        return View(anketlist); 
                     }
 
                 }
@@ -55,6 +58,25 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
+
+
+        }
+
+        [HttpPost]
+        public ActionResult Cevapla(int SQ_ANKET_ID)
+        {
+            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 2000000 };
+            ////ANK_ANKETLER model = db.ANK_ANKETLER.Where(x => x.SQ_ANKET_ID == SQ_ANKET_ID).SingleOrDefault();
+            ////string value = string.Empty;
+            ////value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+            ////{
+            ////    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            ////});
+            ////var serialized = serializer.Serialize(value);
+            ////return Json(value,JsonRequestBehavior.AllowGet);
+            var model = db.ANK_ANKETLER.Where(x => x.SQ_ANKET_ID == SQ_ANKET_ID).Select(x => new { id = x.SQ_ANKET_ID, title = x.CH_ANKET,sorular=db.ANK_SORULAR.Where(m=>m.CD_ANKET_ID==SQ_ANKET_ID).Select(m=>new { soru=m.CH_SORU ,soruturu=m.CD_REF_ID}),cevaplar=db.ANK_SECENEKLER.Where(y=>y.CD_SORU_ID==)}).FirstOrDefault();
+            var serialized = serializer.Serialize(model);
+            return Json(new JsonResult { Data = serialized }, JsonRequestBehavior.AllowGet);
 
 
         }

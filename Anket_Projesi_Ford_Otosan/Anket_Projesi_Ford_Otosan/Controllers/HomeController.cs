@@ -36,7 +36,9 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
                         Session["SW_YETKI"] = usr.SW_YETKI;
                         var ıd=Session["SQ_IS_NO"] = usr.SQ_IS_NO;
                         //Kullanıcının İş Numarasını Gönderme
-                        TempData["IsNo"] = ıd;
+                        HttpCookie cookie = new HttpCookie("isno",""+ıd);
+                        Response.Cookies.Add(cookie);
+
                         if (usr.SW_YETKI == true)
                         {
                             status = "1";

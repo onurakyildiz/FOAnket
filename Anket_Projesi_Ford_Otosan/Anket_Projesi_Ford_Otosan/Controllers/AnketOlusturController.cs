@@ -28,7 +28,6 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
                 
                 using (db)
                 {
-                    string status;
                     var usr = (from e in db.ANK_CALISANLAR where e.CH_KUL_ADI == test && e.CH_SIFRE==stest && e.SW_YETKI==true select e.SQ_IS_NO).FirstOrDefault();
 
                     if (Session["CH_KUL_ADI"].ToString() != test && Session["CH_SIFRE"].ToString()!=stest && yetki!=true)
@@ -59,6 +58,7 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
         public JsonResult AnketKaydet(AnketKaydetme model)
         {
             var result = false;
+            var isno = Request.Cookies["isno"].Value;
             try
             {
 
@@ -66,50 +66,74 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
                 ANK_ANKETLER stu = db.ANK_ANKETLER.SingleOrDefault(x => x.SQ_ANKET_ID == model.SQ_ANKET_ID);
 
                 //Kullanıcının İş Numrasını Çekme
-                var isno = TempData["IsNo"];
-
-                //Anketler Tablosu Kayıt 
-                var anket = new ANK_ANKETLER { CH_ANKET = model.CH_ANKET, DT_OLUS_TARIHI = DateTime.Now, DT_YAYIN_TARIHI = model.DT_YAYIN_TARIHI, DT_BITIS_TARIHI = model.DT_BITIS_TARIHI, CD_OLUS_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI = DateTime.Now };
-
-                db.ANK_ANKETLER.Add(anket);
-                db.SaveChanges();
-
-
-                //Oluşturulan Anketin Id'sini çekme
-                var anketId = anket.SQ_ANKET_ID;
-
                 
+                var ıd = Session["SQ_IS_NO"] = model.SQ_IS_NO;
+                //Anketler Tablosu Kayıt 
+                var anketId=0;
+
+                if (model.AnketSayac < 1)
+                {
+                    var anket = new ANK_ANKETLER { CH_ANKET = model.CH_ANKET, DT_OLUS_TARIHI = DateTime.Now, DT_YAYIN_TARIHI = model.DT_YAYIN_TARIHI, DT_BITIS_TARIHI = model.DT_BITIS_TARIHI, CD_OLUS_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI = DateTime.Now };
+                    db.ANK_ANKETLER.Add(anket);
+                    db.SaveChanges();
+                    anketId = anket.SQ_ANKET_ID;
+                    HttpCookie cookie = new HttpCookie("anketid", "" + anketId);
+                    Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    //Oluşturulan Anketin Id'sini çekme
+                 
+
+                //Referans ID'sini çekme
                 int ref_id = model.CD_REF_ID;
+                var anketId2 = Request.Cookies["anketid"].Value;
                 
                 if (ref_id == 9)
                 {//----Seçenekli sorular için kayıt----
-                    var soru=new ANK_SORULAR { CD_ANKET_ID = anketId, CH_SORU = model.CH_SORU, DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI = DateTime.Now, CD_REF_ID = ref_id };
-                    db.ANK_SORULAR.Add(soru);
-                    db.SaveChanges();
-                    var soruID = soru.SQ_SORU_ID;
-                    db.ANK_SECENEKLER.Add(new ANK_SECENEKLER {CD_SORU_ID=soruID,CH_SECENEK=model.CH_SECENEK,DT_EKL_TARIHI=DateTime.Now,CD_EKL_KISI=Convert.ToInt32(isno),DT_GUNC_TARIHI=DateTime.Now,CD_GUNC_KISI=Convert.ToInt32(isno) });
-                    db.SaveChanges();
+
+                    var soruID = 0;
+                        
+                        var soru = new ANK_SORULAR { CD_ANKET_ID = Convert.ToInt32(anketId2), CH_SORU =model.CH_SORU, DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI = DateTime.Now, CD_REF_ID = ref_id };
+                        db.ANK_SORULAR.Add(soru);
+                        db.SaveChanges();
+                        soruID = soru.SQ_SORU_ID;
+                    
+                     
+                    for (int i = 0; i < 4; i++)
+                    {
+                        var deneme = model.Cevaplar.Split(';');
+                        var secenekler = new ANK_SECENEKLER { CD_SORU_ID = soruID, CH_SECENEK = deneme[i], DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt32(isno), DT_GUNC_TARIHI = DateTime.Now, CD_GUNC_KISI = Convert.ToInt32(isno) };
+                        db.ANK_SECENEKLER.Add(secenekler);
+                    }
+                    
                 }
-                else if (ref_id == 8)
+                else 
                 {
-                    //----Açıklamalı sorular için kayıt----
-                    var soru = new ANK_SORULAR { CD_ANKET_ID = anketId, CH_SORU = model.CH_SORU, DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI = DateTime.Now, CD_REF_ID = ref_id };
+                    //----Seçenekli olmayan sorular için kayıt----
+                    var soru = new ANK_SORULAR { CD_ANKET_ID = Convert.ToInt32(anketId2), CH_SORU = model.CH_SORU, DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI = DateTime.Now, CD_REF_ID = ref_id };
                     db.ANK_SORULAR.Add(soru);
-                    db.SaveChanges();
+                    
                 }
-                //Sorular Tablosu Kayıt
-                if (ViewBag.IkiliSecim == "true")
-                {
-                    db.ANK_SORULAR.Add(new ANK_SORULAR { CD_ANKET_ID = anketId, CH_SORU = model.CH_SORU, DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt16(isno), CD_GUNC_KISI = Convert.ToInt16(isno), DT_GUNC_TARIHI= DateTime.Now });
+                db.SaveChanges();
                 }
+                    
+                
+
+                
+
+
+                
 
             }
             catch(Exception e)
             {
-
+                return Json(e.ToString());
             }
-            return Json(result);
+            return Json("OK");
         }
+
+        
 
 
 

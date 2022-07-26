@@ -2,8 +2,7 @@
 @{
     ViewBag.Title = "Anket Oluştur";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int count = 0;
-    int count1 = 0;
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +21,6 @@
     <link rel="stylesheet" href="~/Anket/style.css" />
     <link href=”//cdn.jsdelivr.net/npm/sweetalert2/theme-dark@4/dark.css” rel=”stylesheet”>
 
-
     <style>
         ::-webkit-scrollbar {
             background-color: white;
@@ -37,7 +35,7 @@
 </head>
 <body>
 
-    <form method="post" id="anketolustur-form" style="margin-top=35;" action="/AnketOlustur/Index">
+    <form method="post" id="anketolustur-form" style="margin-top:35px;" action="/AnketOlustur/Index" class="container-fluid">
         <fieldset id="SubmitForm">
             <div id="anketolustur-div" style="border:1px solid blue; height:auto; position:relative; margin:auto; ">
                 <div style="background-color:blue; width:100%; height:100px; ">
@@ -48,175 +46,263 @@
                         <label>Anket Başlığı</label>
                     </div>
                     <div class="col-lg-3 col-sm-12 input-sm">
-                        <input type="text" class="form-control" id="anketbasligi" aria-describedby="emailHelp" placeholder="Anket başlığı giriniz" name="Anket">
+                        <input type="text" class="form-control" id="anketbasligi" aria-describedby="emailHelp" placeholder="Anket başlığı giriniz" name="CH_ANKET">
                     </div>
 
                     <div class="col-lg-1 col-sm-12">
                         <label>Yayın Tarihi</label>
                     </div>
                     <div class="input-group date col-lg-3 col-sm-12" id="datepicker1">
-                        <input type="date" class="form-control format" id="yayintarihi" value="Tarih seçiniz" name="YayinTarihi" />
+                        <input type="date" class="form-control format" id="yayintarihi" value="Tarih seçiniz" name="DT_YAYIN_TARIHI" />
                     </div>
                     <div class="col-lg-1 col-sm-12">
                         <label>Bitiş Tarihi</label>
                     </div>
                     <div class="input-group date col-lg-3 col-sm-12" id="datepicker1">
-                        <input type="date" class="form-control format" id="bitistarihi" value="Tarih seçiniz" name="BitisTarihi" />
+                        <input type="date" class="form-control format" id="bitistarihi" value="Tarih seçiniz" name="DT_BITIS_TARIHI" />
                     </div>
 
                 </div>
-                <div class="row mx-0" style="margin:20px;">
+
+                <div class="row mx-0" style="margin:20px; display:none;" id="myfirstdiv1">
                     <div class="col-lg-1 col-sm-12">
                         <label>Soru</label>
                     </div>
                     <div class="col-lg-3 col-sm-12 input-sm">
-                        <input type="text" class="form-control" id="soru" aria-describedby="emailHelp" placeholder="Soru giriniz" name="Soru">
+                        <input type="text" class="form-control" id="soru1" aria-describedby="emailHelp" placeholder="Soru giriniz" name="CH_SORU">
                     </div>
-                    <div class=" col-lg-3 col-sm-12 input-group">
-                        <button class="add_form_field btn btn-primary" style="visibility:hidden;" id="secekle">Seçenek Ekle</button>
+                    <div class="col-lg-1 col-sm-12">
+                        <label>Soru Türü</label>
                     </div>
+                    <div class="input-group date col-lg-3 col-sm-12" id="dropcek1">
+                        <select class="form-select" aria-label="Default select example" id="dropdown1" name="deneme">
+                            <option value="0">Soru türünü seçiniz</option>
 
+                            @foreach (var item in Model)
+                            {
+
+
+                                if (item.CH_REF_ACIKLAMA != null)
+                                {
+                                    <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR - @item.CH_REF_ACIKLAMA @item.SQ_REF_ID</option>
+                                }
+                                else
+                                {
+                        <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR @item.SQ_REF_ID</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 input-group" style="position:relative;text-align:center;">
+                        <button class="add_form_field btn btn-primary" type="button" style="display: none; position: absolute; left: 35%" id="secekle1">Seçenek Ekle</button>
+                    </div>
+                    <div class="row mx-0 cevaplarekle1" style="margin-top:20px;">
+
+                    </div>
                 </div>
-                <div class="row mx-0 container1" style="margin:20px;" id="secenek">
-
-                </div>
-                <div style="padding:10px; position:relative; margin:auto;">
-                    <button type="button" id="kaydet" class="btn btn-primary">Kaydet</button>
-                </div>
-
-                <div class="col-lg-1 col-sm-12">
-                    <label>Soru Türü</label>
-                </div>
-                <div class="input-group date col-lg-3 col-sm-12">
-                    <select class="form-select" aria-label="Default select example" id="dropdown" name="deneme">
-                        <option value="0">Soru türünü seçiniz</option>
-
-                        @foreach (var item in Model)
-                        {
-
-
-                            <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR - @item.CH_REF_ACIKLAMA</option>
-
-                        }
-                    </select>
+                <div style="padding:10px;">
+                    <button type="button" id="kaydet" class="btn btn-primary" style="position:relative;bottom:0;">Kaydet</button>
                 </div>
             </div>
+
         </fieldset>
+        
     </form>
+
     <script>
         var error = document.getElementById("error-alert");
         var error_close = document.getElementById("error-close");
+        var wrappersoru = $("#anketolustur-div");
+        var sayi = 2, adet = 1;
+        var rep = 1;
+        var x = 0;
         $(document).ready(function () {
             var max_fields = 4;
-            var wrapper = $(".container1");
-            var wrapperSoru = $(".soruekle")
-            var add_button = $(".add_form_field");
-            var addSoru = $(".sorueklebtn");
             
-            var x = 0;
+            var wrapper = $(".cevaplarekle1");
+            var add_button = $("#secekle1");
+
             $(add_button).click(function (e) {
                 e.preventDefault();
                 if (x < max_fields) {
                     x++;
+
                     $(wrapper).append('<div class=" input-sm col-lg-4 col-sm-12">' +
-                        '<input type="text" class="form-control " placeholder="Cevap" aria-label="Soru" aria-describedby="soru1" name="Soru"><a href="#" class="deletesoru btn btn-default col-lg-1 col-sm-12">Sil</a></div>' +
+                        '<input type="text" class="form-control " placeholder="Cevap" aria-label="Soru" aria-describedby="soru0" name="CH_SECENEK" id="secenek' + x + '"><a href="#" class="deletecevap btn btn-default col-lg-1 col-sm-12">Sil</a></div>' +
                         '</div>');
-                } else {
+                }
+                else {
                     /*alert("4'den daha fazla seçenek eklenemez")*/
-                    swal({
-                        title: "Hata!",
-                        text: "4'den daha fazla seçenek eklenemez.",
-                        button: "Tamam",
-                        icon: "error"
-                    });
+                    swal
+                        ({
+                            title: "Hata!",
+                            text: "4'den daha fazla seçenek eklenemez.",
+                            button: "Tamam",
+                            icon: "error",
+                        });
                 }
             });
-            $(wrapper).on("click", ".deletesoru", function (e) {
+            $(wrapper).on("click", ".deletecevap", function (e) {
                 e.preventDefault();
                 $(this).parent('div').remove();
                 x--;
-            })
-        });
-        
 
-        var drop = document.getElementById("dropdown");
-        var btn = document.getElementById("secekle");
+            });
+        });
+
+
+        var drop = document.getElementById("dropdown1");
+        var btn = document.getElementById("secekle1");
         var scnk = document.getElementById("secenek");
-        var eh = document.getElementById("evethayır");
-        var eh1 = document.getElementById("evethayır1");
-        var eh2 = document.getElementById("evhayselect");
         function dropdown() {
             if (drop.options[drop.selectedIndex].value == "9") {
-                btn.style.visibility = 'visible';
+                btn.style.display = 'block';
                 scnk.style.display = 'flex';
-                var model = { CD_REF_ID: $("#dropdown").val() };
-                $.ajax({
-                    type: "Post",
-                    url: "/AnketOlustur/AnketKaydet",
-                    data: model,
-                    success: function () {
 
-                    }
-                });
             }
-
             else {
-                btn.style.visibility = 'hidden';
+                btn.style.display = 'none';
                 scnk.style.display = 'none';
             }
-            if (drop.options[drop.selectedIndex].value == "8") {
-
-                var model = { CD_REF_ID: $("#dropdown").val() };
-                $.ajax({
-                    type: "Post",
-                    url: "/AnketOlustur/AnketKaydet",
-                    data: model,
-                    success: function () {
-
-                    }
-                });
-            }
 
         }
-        function evh() {
-            if (drop.options[drop.selectedIndex].value == "3") {
-                eh.style.display = 'block';
-                eh1.style.display = 'flex';
-            }
-            else {
-                eh.style.display = 'none';
-                eh1.style.display = 'none';
-            }
-        }
+
         drop.addEventListener("change", dropdown);
-        drop.addEventListener("change", evh);
+
+        var adet = 0;
+        var anketsayac = 0;
 
         $("#kaydet").click(function () {
-
-            if ($("#anketbasligi").val() == "" || $("#yayintarihi").val() == "" || $("#bitistarihi").val() == "" || $("#soru").val() == "" || drop.options[drop.selectedIndex].value == "0") {
-
+            adet++;
+            if ($("#anketbasligi").val() == "" || $("#yayintarihi").val() == "" || $("#bitistarihi").val() == "") {
+                adet--;
                 swal({
                     title: "Hata!",
                     text: "Alanlar Boş Geçilemez",
                     button: "Tamam",
-                    icon: "error"
+                    icon: "error",
                 });
             }
             else {
-                var data = $("#SubmitForm").serialize();
+                var model1 = { CH_ANKET: $("#anketbasligi").val(), DT_YAYIN_TARIHI: $("#yayintarihi").val(), DT_BITIS_TARIHI: $("#bitistarihi").val() };
+                var cevaplar = "";
+                var soruturu = document.getElementById("dropdown1");
+                ref_id = soruturu.options[soruturu.selectedIndex].value;
+                for (var i = 1; i <= x; i++) {
+                    cevaplar += $("#secenek" +i ).val() + ";";
+                }
+                
+                if (anketsayac < 1) {
+                    $.ajax
+                        ({
+                            type: "Post",
+                            url: "/AnketOlustur/AnketKaydet",
+                            data: model1,
+                            success: function () {
+                                anketsayac++;
+                                var sorudiv = document.getElementById("myfirstdiv1");
+                                sorudiv.style.display = "flex";
+                            }
 
-                $.ajax({
-                    type: "Post",
-                    url: "/AnketOlustur/AnketKaydet",
-                    data: data,
-                    success: function () {
+                        });
+                }
+                else {
+                    var model2 = { CH_SORU: $("#soru1").val(), Cevaplar: cevaplar, CD_REF_ID: ref_id ,AnketSayac:anketsayac};
+                    $.ajax
+                        ({
+                            type: "Post",
+                            url: "/AnketOlustur/AnketKaydet",
+                            data: model2,
+                            success: function () {
+                                anketsayac++;
+                                var sorudiv = document.getElementById("myfirstdiv1");
+                                sorudiv.style.display = "flex";
+                                if (adet > 1) {
+                                    swal(adet + ". Soruyu Eklemek İstermisiniz?", {
+                                        buttons: {
+                                            cancel: "Hayır",
+                                            catch: {
+                                                text: "Evet",
+                                                value: "catch",
+                                            },
 
-                    }
-                })
+                                        },
+                                    })
+                                        .then((value) => {
+                                            switch (value) {
+                                                case "catch":
+                                                    break;
+
+                                                default:
+                                                    location.reload();
+                                                    adet--;
+                                            }
+                                        });
+                                }
+                                else {
+
+                                }
+
+                            }
+
+                        });
+                }
+                
+                
             }
         });
+        
+
+        function dropdown_Info(val) {
+
+            var say = val.substr(8);
+            var buton = document.getElementById("secekle" + say);
+            var secenek = document.getElementById("cevaplarekle" + say);
+            var secilidrop = document.getElementById("dropdown" + say);
+            if (secilidrop.options[secilidrop.selectedIndex].value == "9") {
+                buton.style.display = 'block';
+                secenek.style.display = 'flex';
+            }
+            else {
+                buton.style.display = 'none';
+                secenek.style.display = 'none';
+            }
+            var y = 1;
+            $(buton).click(function (e) {
+                e.preventDefault();
+                if (y <= 4) {
+                    y++;
+                    $(secenek).append('<div class=" input-sm col-lg-4 col-sm-12">' +
+                        '<input type="text" id="soru' + y + '" class="form-control " placeholder="Cevap" aria-label="Soru" aria-describedby="soru1" name="CH_SECENEK' + y + '">' +
+                        '<a href="#" class="deletecevap btn btn-default col-lg-1 col-sm-12">Sil</a>' +
+                        '</div>');
+
+                }
+                else {
+                    /*alert("4'den daha fazla seçenek eklenemez")*/
+                    swal
+                        ({
+                            title: "Hata!",
+                            text: "4'den daha fazla seçenek eklenemez.",
+                            button: "Tamam",
+                            icon: "error",
+                        });
+                }
+
+            });
+
+            $(secenek).on("click", ".deletecevap", function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+                if (y > 1) {
+                    y--;
+                }
+            });
+        }
+
     </script>
-    <script src=”//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js”></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

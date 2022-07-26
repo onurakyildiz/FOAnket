@@ -23,6 +23,10 @@ namespace Anket_Projesi_Ford_Otosan.Models
 
         public int CD_REF_ID { get; set; }
 
+        public string Cevaplar { get; set; }
+
+        public int AnketSayac { get; set; }
 
     }
+
 }

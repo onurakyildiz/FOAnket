@@ -22,19 +22,17 @@ namespace Anket_Projesi_Ford_Otosan.Models
     
         public int SQ_ANKET_ID { get; set; }
         public string CH_ANKET { get; set; }
-        public DateTime DT_OLUS_TARIHI { get; set; }
-        public DateTime DT_YAYIN_TARIHI { get; set; }
-        public DateTime DT_BITIS_TARIHI { get; set; }
-        public int ? CD_OLUS_KISI { get; set; }
-        public int ? CD_GUNC_KISI { get; set; }
-        public DateTime DT_GUNC_TARIHI { get; set; }
+        public Nullable<System.DateTime> DT_OLUS_TARIHI { get; set; }
+        public Nullable<System.DateTime> DT_YAYIN_TARIHI { get; set; }
+        public Nullable<System.DateTime> DT_BITIS_TARIHI { get; set; }
+        public Nullable<int> CD_OLUS_KISI { get; set; }
+        public Nullable<int> CD_GUNC_KISI { get; set; }
+        public Nullable<System.DateTime> DT_GUNC_TARIHI { get; set; }
         public Nullable<bool> SW_DURUM { get; set; }
     
         public virtual ANK_CALISANLAR ANK_CALISANLAR { get; set; }
         public virtual ANK_CALISANLAR ANK_CALISANLAR1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ANK_SORULAR> ANK_SORULAR { get; set; }
-
-        
     }
 }

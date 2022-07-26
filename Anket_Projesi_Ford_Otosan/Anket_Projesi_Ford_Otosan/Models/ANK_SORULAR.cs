@@ -23,7 +23,7 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public int SQ_SORU_ID { get; set; }
         public Nullable<int> CD_ANKET_ID { get; set; }
         public string CH_SORU { get; set; }
-        public System.DateTime DT_EKL_TARIHI { get; set; }
+        public Nullable<System.DateTime> DT_EKL_TARIHI { get; set; }
         public Nullable<int> CD_EKL_KISI { get; set; }
         public Nullable<int> CD_GUNC_KISI { get; set; }
         public Nullable<System.DateTime> DT_GUNC_TARIHI { get; set; }

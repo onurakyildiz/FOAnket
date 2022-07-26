@@ -52,9 +52,10 @@
 
                     <!-- Şifre Girişi -->
                     <div class="form-outline mb-3">
-                        <input type="password" id="form3Example4" class="form-control form-control-lg"
-                               placeholder="Şifrenizi giriniz" name="CH_SIFRE" />
+                        <span class="form-check-input me-2" onclick="sifregoster()" style="color: darkgray; border: none; position: absolute; padding: 10px; right: 150px; z-index: 5; background: rgba(256,256,256,0.1);"> <i class="fa-solid fa-eye-slash"></i> </span>
+                        <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Şifrenizi giriniz" name="CH_SIFRE" style="position:relative;" />
                         <label class="form-label" for="form3Example4">Şifre</label>
+
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
@@ -125,6 +126,14 @@
 
             }
         });
+    }
+    function sifregoster() {
+        var x = document.getElementById("form3Example4");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
     }
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
