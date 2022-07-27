@@ -9,7 +9,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <style>
-
+    ul {
+        list-style-type:none;
+    }
     .container {
         display: flex;
         align-items: center;
@@ -68,11 +70,11 @@
                 </div>
                 <div class="card-footer bg-transparent border-light">
 
-                    Yayın Tarihi: @item.DT_YAYIN_TARIHI.ToString("dd.MMM.yyyy") <br /> Bitiş Tarihi: @item.DT_BITIS_TARIHI.ToString("dd.MMM.yyyy")
+                    Yayın Tarihi: @item.DT_YAYIN_TARIHI <br /> Bitiş Tarihi: @item.DT_BITIS_TARIHI
 
                 </div>
                 <div class="card-footer bg-transparent border-light d-flex justify-content-between">
-                    <button id="cvpbtn" class="btn btn-success" onclick="CevaplaScript(@item.SQ_ANKET_ID)" data-dismiss="modal" >Cevapla</button>
+                    <button id="cvpbtn" class="btn btn-success" onclick="CevaplaScript(@item.SQ_ANKET_ID)" data-dismiss="modal">Cevapla</button>
                     <button type="button" class="btn btn-warning" @if (ViewBag.Yetki == false) { <text> hidden</text>}>
                         Güncelle
                     </button>
@@ -91,32 +93,38 @@
 
     <!-- The Modal -->
     <div class="modal fade" id="CevaplaModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <form id="cevapkaydetform" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                <!-- Modal Header -->
-                <div  class="modal-header">
-                    <h2 id="CevaplaModalheader"> </h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <!-- Modal Header -->
+                    <div class="modal-header" id="modalheader">
+                        <h2 id="CevaplaModalheader"> </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <h6 id="sorubody"></h6>
+                        <ul id="cevaplar">
+                        </ul>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+                        <button type="button" class="btn btn-success" id="cevapkaydetbtn">Kaydet</button>
+                    </div>
+
                 </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <h6 id="sorubody"></h6>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
-
             </div>
-        </div>
     </div>
+    </form>
 </div>
 
 <script>
-
+    var sayac = 1;
+    var index = 0;
     function CevaplaScript(SQ_ANKET_ID) {
         $("#CevaplaModal").modal("show");
         debugger;
@@ -131,29 +139,76 @@
             url: url,
             data: JSON.stringify(model),
             contentType: "application/json",
-        }).done(function (res) {
+        }).done(function (res)
+        {
+            
             debugger
 
             var obj = JSON.parse(res.Data);
+            
             $("#CevaplaModalheader").html(obj.title);
-            var sayac = 0;
-            for (var i = 0; i < obj.sorular.length; i++) {
-                if (sayac == 0) {
-                    if (i == 0) {
-                        sayac++;
-                        $("#sorubody").html(obj.sorular[i].soru);
-                        break;
-                    }
-                }
-                else {
+            
+            for (var i=0; i < obj.sorular.length; i++)
+            {
+                if (i == index )
+                {
                     $("#sorubody").html(obj.sorular[i].soru);
-                }
-                
+                    var sorutur = obj.sorular[i].soruturu;
+                    var sorid = obj.sorular[i].snumara;
+                    if (obj.sorular[i].soruturu == "9")
+                    {
+                        
+                        for (var y = 0; y < obj.cevaplar.length; y++)
+                        {
+                            debugger
+                            if (obj.sorular[i].snumara == obj.cevaplar[y].sid) {
+                                $("#cevaplar").append('<li><input type="radio" value="' + obj.cevaplar[y].cevap + '" name="CH_BILGI" id="cevapinput'+i+'"/><label>' + obj.cevaplar[y].cevap + '</label></li>');
+                                
+                                
+                            }
+                            
+                        }
+                    }
+                    else if (obj.sorular[i].soruturu == "2")
+                    {
+                        $("#cevaplar").append('<li><input type="radio" value="evet" name="evet/hayır"/><label>Evet</label></li>');
+                        $("#cevaplar").append('<li><input type="radio" value="hayır" name="evet/hayır"/><label>Hayır</label></li>');
+                    }
+                    else if (obj.sorular[i].soruturu == "4")
+                    {
+                        $("#cevaplar").append('<li><input type="radio" value="katılıyorum" name="katılıyorum/katılmıyorum"/><label>Katılıyorum</label></li>');
+                        $("#cevaplar").append('<li><input type="radio" value="katılmıyorum" name="katılıyorum/katılmıyorum"/><label>Katılmıyorum</label></li>');
+                    }
+                    else if (obj.sorular[i].soruturu == "6")
+                    {
+                        $("#cevaplar").append('<li><input type="radio" value="seviyorum" name="seviyorum/sevmiyorum"/><label>Seviyorum</label></li>');
+                        $("#cevaplar").append('<li><input type="radio" value="sevmiyorum" name="seviyorum/sevmiyorum"/><label>Sevmiyorum</label></li>');
+                    }
+                    else if (obj.sorular[i].soruturu == "8")
+                    {
+                        $("#cevaplar").append('<li><input type="text" value="acıklama" placeholder="Cevap giriniz" class="form-control"/><label>Seviyorum</label></li>');
+                    }
+                    
+                }   
             }
-           
-            
-            
+            $("#cevapkaydetbtn").click(function kaydet() {
+                var model1 = { CD_SECENEK_ID: obj.cevaplar[i].secid, CD_SORU_ID: sorid, CH_BILGI: $("#cevapinput").val(), CD_REF_ID: sorutur };
+                /*var model1 = $("#cevapkaydetform").serialize();*/
+                debugger
+                $.ajax({
+                    type: "Post",
+                    url: "/Anketler/CevapKaydet",
+                    data: model1,
+                    success: function devam() {
+                        ++index;
+                    }
+                });
+
+            });
         });
+        
+        
+        $("#cevaplar").empty().append("");
     }
 
        

@@ -26,6 +26,7 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public string Cevaplar { get; set; }
 
         public int AnketSayac { get; set; }
+        public int CevapSayac { get; set; }
 
     }
 

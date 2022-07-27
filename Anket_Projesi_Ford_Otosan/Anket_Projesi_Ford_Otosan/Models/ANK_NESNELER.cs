@@ -17,7 +17,6 @@ namespace Anket_Projesi_Ford_Otosan.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ANK_NESNELER()
         {
-            this.ANK_CEVAPLAR = new HashSet<ANK_CEVAPLAR>();
             this.ANK_REFERANSLAR = new HashSet<ANK_REFERANSLAR>();
         }
     
@@ -29,8 +28,6 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public Nullable<System.DateTime> DT_GUNC_TARIHI { get; set; }
     
         public virtual ANK_CALISANLAR ANK_CALISANLAR { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ANK_CEVAPLAR> ANK_CEVAPLAR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ANK_REFERANSLAR> ANK_REFERANSLAR { get; set; }
     }

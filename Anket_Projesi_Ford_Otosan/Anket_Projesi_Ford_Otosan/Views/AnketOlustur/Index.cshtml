@@ -84,11 +84,11 @@
 
                                 if (item.CH_REF_ACIKLAMA != null)
                                 {
-                                    <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR - @item.CH_REF_ACIKLAMA @item.SQ_REF_ID</option>
+                                    <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR - @item.CH_REF_ACIKLAMA </option>
                                 }
                                 else
                                 {
-                        <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR @item.SQ_REF_ID</option>
+                        <option value="@item.SQ_REF_ID">@item.CH_REF_ANAHTAR </option>
                                 }
 
                             }
@@ -185,7 +185,7 @@
                 });
             }
             else {
-                var model1 = { CH_ANKET: $("#anketbasligi").val(), DT_YAYIN_TARIHI: $("#yayintarihi").val(), DT_BITIS_TARIHI: $("#bitistarihi").val() };
+                var model1 = { CH_ANKET: $("#anketbasligi").val(), DT_YAYIN_TARIHI: $("#yayintarihi").val(), DT_BITIS_TARIHI: $("#bitistarihi").val()};
                 var cevaplar = "";
                 var soruturu = document.getElementById("dropdown1");
                 ref_id = soruturu.options[soruturu.selectedIndex].value;
@@ -208,7 +208,7 @@
                         });
                 }
                 else {
-                    var model2 = { CH_SORU: $("#soru1").val(), Cevaplar: cevaplar, CD_REF_ID: ref_id ,AnketSayac:anketsayac};
+                    var model2 = { CH_SORU: $("#soru1").val(), Cevaplar: cevaplar, CD_REF_ID: ref_id, AnketSayac: anketsayac, CevapSayac: x };
                     $.ajax
                         ({
                             type: "Post",

@@ -24,10 +24,11 @@
         <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_CALISANLAR2" ManuallyRouted="false" />
         <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_CALISANLAR" ManuallyRouted="false" />
         <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_CALISANLAR1" ManuallyRouted="false" />
-        <AssociationConnector Association="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_NESNELER" ManuallyRouted="false" />
         <AssociationConnector Association="ANKET_DBModel.FK_ANK_REFERANSLAR_ANK_NESNELER" ManuallyRouted="false" />
         <AssociationConnector Association="ANKET_DBModel.FK_ANK_SORULAR_ANK_REFERANSLAR" ManuallyRouted="false" />
         <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_SORULAR" ManuallyRouted="false" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_ANKETLER" />
+        <AssociationConnector Association="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_REFERANSLAR" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

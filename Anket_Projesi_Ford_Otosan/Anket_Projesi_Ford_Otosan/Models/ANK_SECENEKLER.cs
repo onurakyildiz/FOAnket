@@ -21,10 +21,12 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public Nullable<int> CD_EKL_KISI { get; set; }
         public Nullable<System.DateTime> DT_GUNC_TARIHI { get; set; }
         public Nullable<int> CD_GUNC_KISI { get; set; }
+        public Nullable<int> CD_ANKET_ID { get; set; }
     
         public virtual ANK_CALISANLAR ANK_CALISANLAR { get; set; }
         public virtual ANK_CALISANLAR ANK_CALISANLAR1 { get; set; }
         public virtual ANK_CALISANLAR ANK_CALISANLAR2 { get; set; }
         public virtual ANK_SORULAR ANK_SORULAR { get; set; }
+        public virtual ANK_ANKETLER ANK_ANKETLER { get; set; }
     }
 }

@@ -37,12 +37,12 @@
     <EntitySetMapping Name="ANK_CEVAPLAR">
       <EntityTypeMapping TypeName="ANKET_DBModel.ANK_CEVAPLAR">
         <MappingFragment StoreEntitySet="ANK_CEVAPLAR">
+          <ScalarProperty Name="CD_REF_ID" ColumnName="CD_REF_ID" />
           <ScalarProperty Name="SQ_CEVAP_ID" ColumnName="SQ_CEVAP_ID" />
           <ScalarProperty Name="CD_SECENEK_ID" ColumnName="CD_SECENEK_ID" />
           <ScalarProperty Name="CD_SORU_ID" ColumnName="CD_SORU_ID" />
           <ScalarProperty Name="CD_CEVAPLAYAN_KISI" ColumnName="CD_CEVAPLAYAN_KISI" />
           <ScalarProperty Name="CH_BILGI" ColumnName="CH_BILGI" />
-          <ScalarProperty Name="CD_NESNE_ID" ColumnName="CD_NESNE_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -75,6 +75,7 @@
     <EntitySetMapping Name="ANK_SECENEKLER">
       <EntityTypeMapping TypeName="ANKET_DBModel.ANK_SECENEKLER">
         <MappingFragment StoreEntitySet="ANK_SECENEKLER">
+          <ScalarProperty Name="CD_ANKET_ID" ColumnName="CD_ANKET_ID" />
           <ScalarProperty Name="SQ_SECENEK_ID" ColumnName="SQ_SECENEK_ID" />
           <ScalarProperty Name="CD_SORU_ID" ColumnName="CD_SORU_ID" />
           <ScalarProperty Name="CH_SECENEK" ColumnName="CH_SECENEK" />

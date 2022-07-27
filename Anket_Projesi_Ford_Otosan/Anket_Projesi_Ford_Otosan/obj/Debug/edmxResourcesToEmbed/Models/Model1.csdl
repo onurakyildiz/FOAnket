@@ -16,6 +16,7 @@
     <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_ANKETLER_ANK_CALISANLAR" FromRole="ANK_ANKETLER" ToRole="ANK_CALISANLAR" />
     <NavigationProperty Name="ANK_CALISANLAR1" Relationship="Self.FK_ANK_ANKETLER_ANK_CALISANLAR1" FromRole="ANK_ANKETLER" ToRole="ANK_CALISANLAR" />
     <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SORULAR_ANK_ANKETLER" FromRole="ANK_ANKETLER" ToRole="ANK_SORULAR" />
+    <NavigationProperty Name="ANK_SECENEKLER" Relationship="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_ANKETLER" FromRole="ANK_ANKETLER" ToRole="ANK_SECENEKLER" />
   </EntityType>
   <EntityType Name="ANK_CALISANLAR">
     <Key>
@@ -53,9 +54,9 @@
     <Property Name="CD_SORU_ID" Type="Int32" />
     <Property Name="CD_CEVAPLAYAN_KISI" Type="Int32" />
     <Property Name="CH_BILGI" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="CD_NESNE_ID" Type="Int32" />
     <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_CEVAPLAR_ANK_CALISANLAR" FromRole="ANK_CEVAPLAR" ToRole="ANK_CALISANLAR" />
-    <NavigationProperty Name="ANK_NESNELER" Relationship="Self.FK_ANK_CEVAPLAR_ANK_NESNELER" FromRole="ANK_CEVAPLAR" ToRole="ANK_NESNELER" />
+    <Property Name="CD_REF_ID" Type="Int32" />
+    <NavigationProperty Name="ANK_REFERANSLAR" Relationship="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_REFERANSLAR" FromRole="ANK_CEVAPLAR" ToRole="ANK_REFERANSLAR" />
   </EntityType>
   <EntityType Name="ANK_NESNELER">
     <Key>
@@ -68,7 +69,6 @@
     <Property Name="CD_GUNC_KISI" Type="Int32" />
     <Property Name="DT_GUNC_TARIHI" Type="DateTime" Precision="0" />
     <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_NESNELER_ANK_CALISANLAR" FromRole="ANK_NESNELER" ToRole="ANK_CALISANLAR" />
-    <NavigationProperty Name="ANK_CEVAPLAR" Relationship="Self.FK_ANK_CEVAPLAR_ANK_NESNELER" FromRole="ANK_NESNELER" ToRole="ANK_CEVAPLAR" />
     <NavigationProperty Name="ANK_REFERANSLAR" Relationship="Self.FK_ANK_REFERANSLAR_ANK_NESNELER" FromRole="ANK_NESNELER" ToRole="ANK_REFERANSLAR" />
   </EntityType>
   <EntityType Name="ANK_REFERANSLAR">
@@ -86,6 +86,7 @@
     <NavigationProperty Name="ANK_CALISANLAR" Relationship="Self.FK_ANK_REFERANSLAR_ANK_CALISANLAR" FromRole="ANK_REFERANSLAR" ToRole="ANK_CALISANLAR" />
     <NavigationProperty Name="ANK_NESNELER" Relationship="Self.FK_ANK_REFERANSLAR_ANK_NESNELER" FromRole="ANK_REFERANSLAR" ToRole="ANK_NESNELER" />
     <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SORULAR_ANK_REFERANSLAR" FromRole="ANK_REFERANSLAR" ToRole="ANK_SORULAR" />
+    <NavigationProperty Name="ANK_CEVAPLAR" Relationship="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_REFERANSLAR" FromRole="ANK_REFERANSLAR" ToRole="ANK_CEVAPLAR" />
   </EntityType>
   <EntityType Name="ANK_SECENEKLER">
     <Key>
@@ -102,6 +103,8 @@
     <NavigationProperty Name="ANK_CALISANLAR1" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR1" FromRole="ANK_SECENEKLER" ToRole="ANK_CALISANLAR" />
     <NavigationProperty Name="ANK_CALISANLAR2" Relationship="Self.FK_ANK_SECENEKLER_ANK_CALISANLAR2" FromRole="ANK_SECENEKLER" ToRole="ANK_CALISANLAR" />
     <NavigationProperty Name="ANK_SORULAR" Relationship="Self.FK_ANK_SECENEKLER_ANK_SORULAR" FromRole="ANK_SECENEKLER" ToRole="ANK_SORULAR" />
+    <Property Name="CD_ANKET_ID" Type="Int32" />
+    <NavigationProperty Name="ANK_ANKETLER" Relationship="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_ANKETLER" FromRole="ANK_SECENEKLER" ToRole="ANK_ANKETLER" />
   </EntityType>
   <EntityType Name="ANK_SORULAR">
     <Key>
@@ -263,18 +266,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ANK_CEVAPLAR_ANK_NESNELER">
-    <End Role="ANK_NESNELER" Type="Self.ANK_NESNELER" Multiplicity="0..1" />
-    <End Role="ANK_CEVAPLAR" Type="Self.ANK_CEVAPLAR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ANK_NESNELER">
-        <PropertyRef Name="SQ_NESNE_ID" />
-      </Principal>
-      <Dependent Role="ANK_CEVAPLAR">
-        <PropertyRef Name="CD_NESNE_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ANK_REFERANSLAR_ANK_NESNELER">
     <End Role="ANK_NESNELER" Type="Self.ANK_NESNELER" Multiplicity="0..1" />
     <End Role="ANK_REFERANSLAR" Type="Self.ANK_REFERANSLAR" Multiplicity="*" />
@@ -364,10 +355,6 @@
       <End Role="ANK_CALISANLAR" EntitySet="ANK_CALISANLAR" />
       <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
     </AssociationSet>
-    <AssociationSet Name="FK_ANK_CEVAPLAR_ANK_NESNELER" Association="Self.FK_ANK_CEVAPLAR_ANK_NESNELER">
-      <End Role="ANK_NESNELER" EntitySet="ANK_NESNELER" />
-      <End Role="ANK_CEVAPLAR" EntitySet="ANK_CEVAPLAR" />
-    </AssociationSet>
     <AssociationSet Name="FK_ANK_REFERANSLAR_ANK_NESNELER" Association="Self.FK_ANK_REFERANSLAR_ANK_NESNELER">
       <End Role="ANK_NESNELER" EntitySet="ANK_NESNELER" />
       <End Role="ANK_REFERANSLAR" EntitySet="ANK_REFERANSLAR" />
@@ -380,5 +367,37 @@
       <End Role="ANK_SORULAR" EntitySet="ANK_SORULAR" />
       <End Role="ANK_SECENEKLER" EntitySet="ANK_SECENEKLER" />
     </AssociationSet>
+    <AssociationSet Name="FK_ANK_SECENEKLER_ANK_ANKETLER" Association="ANKET_DBModel.FK_ANK_SECENEKLER_ANK_ANKETLER">
+      <End Role="ANK_ANKETLER" EntitySet="ANK_ANKETLER" />
+      <End Role="ANK_SECENEKLER" EntitySet="ANK_SECENEKLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ANK_CEVAPLAR_ANK_REFERANSLAR" Association="ANKET_DBModel.FK_ANK_CEVAPLAR_ANK_REFERANSLAR">
+      <End Role="ANK_REFERANSLAR" EntitySet="ANK_REFERANSLAR" />
+      <End Role="ANK_CEVAPLAR" EntitySet="ANK_CEVAPLAR" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_ANK_SECENEKLER_ANK_ANKETLER">
+    <End Type="ANKET_DBModel.ANK_ANKETLER" Role="ANK_ANKETLER" Multiplicity="0..1" />
+    <End Type="ANKET_DBModel.ANK_SECENEKLER" Role="ANK_SECENEKLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_ANKETLER">
+        <PropertyRef Name="SQ_ANKET_ID" />
+      </Principal>
+      <Dependent Role="ANK_SECENEKLER">
+        <PropertyRef Name="CD_ANKET_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ANK_CEVAPLAR_ANK_REFERANSLAR">
+    <End Type="ANKET_DBModel.ANK_REFERANSLAR" Role="ANK_REFERANSLAR" Multiplicity="0..1" />
+    <End Type="ANKET_DBModel.ANK_CEVAPLAR" Role="ANK_CEVAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ANK_REFERANSLAR">
+        <PropertyRef Name="SQ_REF_ID" />
+      </Principal>
+      <Dependent Role="ANK_CEVAPLAR">
+        <PropertyRef Name="CD_REF_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

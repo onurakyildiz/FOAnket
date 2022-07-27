@@ -19,9 +19,9 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public Nullable<int> CD_SORU_ID { get; set; }
         public Nullable<int> CD_CEVAPLAYAN_KISI { get; set; }
         public string CH_BILGI { get; set; }
-        public Nullable<int> CD_NESNE_ID { get; set; }
+        public Nullable<int> CD_REF_ID { get; set; }
     
         public virtual ANK_CALISANLAR ANK_CALISANLAR { get; set; }
-        public virtual ANK_NESNELER ANK_NESNELER { get; set; }
+        public virtual ANK_REFERANSLAR ANK_REFERANSLAR { get; set; }
     }
 }

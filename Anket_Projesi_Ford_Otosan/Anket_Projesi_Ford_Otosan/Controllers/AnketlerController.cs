@@ -74,11 +74,22 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
             ////});
             ////var serialized = serializer.Serialize(value);
             ////return Json(value,JsonRequestBehavior.AllowGet);
-            var model = db.ANK_ANKETLER.Where(x => x.SQ_ANKET_ID == SQ_ANKET_ID).Select(x => new { id = x.SQ_ANKET_ID, title = x.CH_ANKET,sorular=db.ANK_SORULAR.Where(m=>m.CD_ANKET_ID==SQ_ANKET_ID).Select(m=>new { soru=m.CH_SORU ,soruturu=m.CD_REF_ID}),cevaplar=db.ANK_SECENEKLER.Where(y=>y.CD_SORU_ID==)}).FirstOrDefault();
+            int soruid = db.ANK_SORULAR.Where(x => x.CD_ANKET_ID == SQ_ANKET_ID).Select(x => new { id = x.SQ_SORU_ID }).FirstOrDefault().id;
+
+            int id;
+            var model = db.ANK_ANKETLER.Where(x => x.SQ_ANKET_ID == SQ_ANKET_ID).Select(x => new { id = x.SQ_ANKET_ID, title = x.CH_ANKET, sorular = db.ANK_SORULAR.Where(m => m.CD_ANKET_ID == SQ_ANKET_ID).Select(m => new { soru = m.CH_SORU, soruturu = m.CD_REF_ID,snumara=m.SQ_SORU_ID }), cevaplar = db.ANK_SECENEKLER.Where(y => y.CD_ANKET_ID== SQ_ANKET_ID).Select(y => new { secid=y.SQ_SECENEK_ID,cevap = y.CH_SECENEK,sid=y.CD_SORU_ID }) }).FirstOrDefault();
             var serialized = serializer.Serialize(model);
             return Json(new JsonResult { Data = serialized }, JsonRequestBehavior.AllowGet);
 
-
+        }
+        [HttpPost]
+        public JsonResult CevapKaydet(cevapbilgiler model)
+        {
+            var isno = Request.Cookies["isno"].Value;
+            var cevaplar = new ANK_CEVAPLAR { CD_SECENEK_ID = model.CD_SECENEK_ID, CD_SORU_ID = model.CD_SORU_ID, CD_CEVAPLAYAN_KISI = Convert.ToInt32(isno), CH_BILGI = model.CH_BILGI, CD_REF_ID = model.CD_REF_ID };
+            db.ANK_CEVAPLAR.Add(cevaplar);
+            db.SaveChanges();
+            return Json("OK");
         }
 
     }

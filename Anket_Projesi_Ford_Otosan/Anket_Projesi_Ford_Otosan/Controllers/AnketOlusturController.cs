@@ -100,10 +100,10 @@ namespace Anket_Projesi_Ford_Otosan.Controllers
                         soruID = soru.SQ_SORU_ID;
                     
                      
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < model.CevapSayac; i++)
                     {
                         var deneme = model.Cevaplar.Split(';');
-                        var secenekler = new ANK_SECENEKLER { CD_SORU_ID = soruID, CH_SECENEK = deneme[i], DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt32(isno), DT_GUNC_TARIHI = DateTime.Now, CD_GUNC_KISI = Convert.ToInt32(isno) };
+                        var secenekler = new ANK_SECENEKLER { CD_SORU_ID = soruID, CH_SECENEK = deneme[i], DT_EKL_TARIHI = DateTime.Now, CD_EKL_KISI = Convert.ToInt32(isno), DT_GUNC_TARIHI = DateTime.Now, CD_GUNC_KISI = Convert.ToInt32(isno),CD_ANKET_ID = Convert.ToInt32(anketId2) };
                         db.ANK_SECENEKLER.Add(secenekler);
                     }
                     

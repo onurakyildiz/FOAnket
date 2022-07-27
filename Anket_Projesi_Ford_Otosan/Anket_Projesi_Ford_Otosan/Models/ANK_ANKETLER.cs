@@ -18,6 +18,7 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public ANK_ANKETLER()
         {
             this.ANK_SORULAR = new HashSet<ANK_SORULAR>();
+            this.ANK_SECENEKLER = new HashSet<ANK_SECENEKLER>();
         }
     
         public int SQ_ANKET_ID { get; set; }
@@ -34,5 +35,7 @@ namespace Anket_Projesi_Ford_Otosan.Models
         public virtual ANK_CALISANLAR ANK_CALISANLAR1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ANK_SORULAR> ANK_SORULAR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ANK_SECENEKLER> ANK_SECENEKLER { get; set; }
     }
 }
